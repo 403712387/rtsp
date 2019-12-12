@@ -1,6 +1,7 @@
 #include <QTime>
 #include "RtspTask.h"
 #include "RtspCommon.h"
+#include "ffmpeg_server_demux.h"
 
 RtspTask::RtspTask(RTSPServer *server, UsageEnvironment *environment)
 {
@@ -201,6 +202,16 @@ ServerMediaSession* RtspTask::createSession()
     {
       sms->addSubsession(smss);
     }
+  }
+  else if (strcmp(extension, ".avi") == 0 || strcmp(extension, ".mp4") == 0)
+  {
+      NEW_SMS("ffmpeg");
+      FfmpegServerDemux* demux = FfmpegServerDemux::CreateNew(*mEnvironment, mFileName.c_str(), reuseSource);
+      if (demux != NULL)
+      {
+          sms->addSubsession(demux->NewAudioServerMediaSubsession());
+          sms->addSubsession(demux->NewVideoServerMediaSubsession());
+      }
   }
 
   return sms;
