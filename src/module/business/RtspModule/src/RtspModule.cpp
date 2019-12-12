@@ -232,6 +232,7 @@ bool RtspModule::removeTask(std::string stream)
         LOG_I(mClassName, "remove task, stream name:" << stream);
         result = true;
         task->stopTask();
+        mMapTask.remove(stream);
     }
     return result;
 }
