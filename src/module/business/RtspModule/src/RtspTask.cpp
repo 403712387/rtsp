@@ -15,6 +15,7 @@ bool RtspTask::startTask(std::string file)
 
     // 创建视频流
     mMediaSession = createSession(*mEnvironment, mFileName.c_str());
+    mRtspServer->registerStream(mMediaSession, file.c_str(), 554, NULL);
     return NULL != mMediaSession;
 }
 
