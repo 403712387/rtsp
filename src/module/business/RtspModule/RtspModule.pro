@@ -22,6 +22,7 @@ INCLUDEPATH += ../../base/Common/src \
             ./src \
             ./src/common \
             ./src/ffmpeg \
+            ./src/ffmpeg/subsession \
             ../../base/CoreModule/src
 
 win32 {
@@ -43,9 +44,11 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
 HEADERS += \
     src/*.h \
     src/common/*.h \
-    src/ffmpeg/*.h
+    src/ffmpeg/*.h \
+    src/ffmpeg/subsession/*.h
 
 SOURCES += \
     src/*.cpp \
     src/common/*.cpp \
-    src/ffmpeg/*.cpp
+    src/ffmpeg/*.cpp \
+    src/ffmpeg/subsession/*.cpp
