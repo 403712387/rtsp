@@ -5,7 +5,7 @@
 #define NEW_SMS(description) do {\
 char const* descStr = description\
     ", streamed by the LIVE555 Media Server";\
-sms = ServerMediaSession::createNew(env, fileName, fileName, descStr);\
+sms = ServerMediaSession::createNew(*mEnvironment, fileName, fileName, descStr);\
 } while(0)
 
 
