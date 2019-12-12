@@ -17,7 +17,7 @@ public:
     void setHttpPort(int port);
 
     // 设置rtsp接口
-    int getRtspPort();
+    int getRtspPort(int defaultPort = 554);
 
     // 设置rtsp接口
     void setRtspPort(int port);

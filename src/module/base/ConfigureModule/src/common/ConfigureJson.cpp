@@ -69,15 +69,23 @@ void ConfigureJson::setHttpPort(int port)
 }
 
 // 设置rtsp接口
-int ConfigureJson::getRtspPort()
+int ConfigureJson::getRtspPort(int defaultPort)
 {
-    return mRtspPort;
+    return (mRtspPort > 0) ? mRtspPort : defaultPort;
 }
 
 // 设置rtsp接口
 void ConfigureJson::setRtspPort(int port)
 {
+    if (mRtspPort == port)
+    {
+        return;
+    }
+
     mRtspPort = port;
+
+    // 保存到配置文件
+    saveConfigure();
 }
 
 // 保存到配置文件
