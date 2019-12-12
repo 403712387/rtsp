@@ -121,8 +121,8 @@ std::shared_ptr<BaseResponse> RtspModule::onProcessStartTaskMessage(std::shared_
         return response;
     }
 
-    std::string url = mRtspServer->rtspURLPrefix() + "/" + task->getStreamName();
-    response = std::make_shared<StartTaskResponse>(task->getStreamName(), message, Common::noError());
+    std::string url = std::string(mRtspServer->rtspURLPrefix()) + "/" + task->getStreamName();
+    response = std::make_shared<StartTaskResponse>(url, message, Common::noError());
     return response;
 }
 
