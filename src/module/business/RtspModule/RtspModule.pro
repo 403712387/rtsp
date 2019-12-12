@@ -10,6 +10,7 @@ MOC_DIR = ../../../output/RtspModule
 INCLUDEPATH += ../../base/Common/src \
             ../../../../thirdparty/include \
             ../../../../thirdparty/include/Qt \
+            ../../../../thirdparty/include/ffmpeg \
             ../../../../thirdparty/include/live555/BasicUsageEnvironment/include \
             ../../../../thirdparty/include/live555/liveMedia/include \
             ../../../../thirdparty/include/live555/groupsock/include \
@@ -19,6 +20,7 @@ INCLUDEPATH += ../../base/Common/src \
             ../../base/Common/src/common \
             ./src \
             ./src/common \
+            ./src/ffmpeg \
             ../../base/CoreModule/src
 
 win32 {
@@ -26,6 +28,7 @@ DEFINES += LIVE555_EXPORT=__declspec(dllimport)
 LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
         -L../../../../thirdparty/lib/windows64/Qt -lQt5Core \
         -L../../../../thirdparty/lib/windows64/live555 -llive555 \
+        -L../../../../thirdparty/lib/windows64/ffmpeg -lavcodec -lavdevice -lavfilter -lavformat -lavutil -lswresample -lswscale \
         -L../../../../thirdparty/lib/windows64/jsoncpp -ljsoncpp
 }
 
@@ -38,8 +41,10 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
 
 HEADERS += \
     src/*.h \
-    src/common/*.h
+    src/common/*.h \
+    src/ffmpeg/*.h
 
 SOURCES += \
     src/*.cpp \
-    src/common/*.cpp
+    src/common/*.cpp \
+    src/ffmpeg/*.cpp

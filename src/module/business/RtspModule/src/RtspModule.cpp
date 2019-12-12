@@ -173,6 +173,7 @@ bool RtspModule::startListen()
 
     mRtspServer = RTSPServer::createNew(*mRtspEnvironment, mConfigureInfo->getRtspPort(), NULL);
     mRtspEnvironment->taskScheduler().doEventLoop();
+    return true;
 }
 
 // 添加task
