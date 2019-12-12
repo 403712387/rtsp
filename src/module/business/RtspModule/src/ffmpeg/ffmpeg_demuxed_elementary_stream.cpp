@@ -9,8 +9,6 @@
 #include "ffmpeg_demux.h"
 #include "ffmpeg_demuxed_elementary_stream.h"
 
-//#define EX_DEBUG
-
 FfmpegDemuxedElementaryStream *FfmpegDemuxedElementaryStream::CreateNew(
         UsageEnvironment & env,
         u_int8_t stream_id,

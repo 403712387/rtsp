@@ -6,6 +6,7 @@ TEMPLATE = lib
 DESTDIR = ../../../bin/rtsp/lib/module
 OBJECTS_DIR = ../../../output/RtspModule
 MOC_DIR = ../../../output/RtspModule
+DEFINES += __STDC_CONSTANT_MACROS
 
 INCLUDEPATH += ../../base/Common/src \
             ../../../../thirdparty/include \

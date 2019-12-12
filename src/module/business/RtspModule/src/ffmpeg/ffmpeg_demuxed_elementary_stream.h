@@ -1,10 +1,3 @@
-/*
- * FfmpegDemuxedElementaryStream.h
- *
- *  Created on: 2011-12-8
- *      Author: Liang Guangwei
- */
-
 #ifndef FFMPEGDEMUXEDELEMENTARYSTREAM_H_
 #define FFMPEGDEMUXEDELEMENTARYSTREAM_H_
 class FfmpegDemux;

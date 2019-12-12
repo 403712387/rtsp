@@ -10,16 +10,13 @@
 #include "ffmpeg_demux.h"
 #include <iostream>
 #include <cstring>
-extern "C" {
+extern "C"
+{
 #include "libavutil/avutil.h"
 #include "libavformat/avformat.h"
 #include "libavcodec/avcodec.h"
 }
 
-
-//#define EX_DEBUG
-//#define NOT_USE_BITSTREAM_FILER  //do not use "h264_mp4toannexb" bitstream filter
-////////// SavedData definition/implementation //////////
 
 class SavedData {
 public:
@@ -468,11 +465,12 @@ int FfmpegDemux::ReadOneFrame(AVPacket* packet, boolean &has_extra_data) {
         AVCodecContext *codec = NULL;
         codec = format_ctx_->streams[stream_id]->codec;
 
-        if (codec->codec_id == CODEC_ID_H264) {
+        if (codec->codec_id == AV_CODEC_ID_H264) {
             //pps and sps
 //            const char start_code[4] = { 0, 0, 0, 1 };
-
+#if 0
             _264stream = stream_id;
+#endif
             if(h264bsfc  == NULL)
             {
             	h264bsfc =  av_bitstream_filter_init("h264_mp4toannexb");
@@ -485,7 +483,7 @@ int FfmpegDemux::ReadOneFrame(AVPacket* packet, boolean &has_extra_data) {
 //                    stream_id) == 0)) {
 //                has_extra_data = True;
 //            }
-        } else if (codec->codec_id == CODEC_ID_MPEG4) {
+        } else if (codec->codec_id == AV_CODEC_ID_MPEG4) {
             static boolean first = True;
             if (first) {
                 has_extra_data = True;

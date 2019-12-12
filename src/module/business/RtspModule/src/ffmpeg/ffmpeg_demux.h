@@ -1,10 +1,3 @@
-/*
- * ffmpeg_demux.h
- *
- *  Created on: 2011-12-9
- *      Author: Liang Guangwei
- */
-
 #ifndef FFMPEG_DEMUX_H_
 #define FFMPEG_DEMUX_H_
 

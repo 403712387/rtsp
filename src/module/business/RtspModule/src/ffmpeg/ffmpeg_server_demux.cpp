@@ -54,7 +54,7 @@ FfmpegServerDemux::FfmpegServerDemux(UsageEnvironment& env,
     std::memset(&stream_[0], 0, sizeof(StreamInfo) * MAX_STREAM_NUM);
     for (int i = 0; i < MAX_STREAM_NUM; ++i) {
 
-        stream_[i].codec_id = CODEC_ID_NONE;
+        stream_[i].codec_id = AV_CODEC_ID_NONE;
         stream_[i].channels = 1;
     }
 }
@@ -124,13 +124,13 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession(
 
     //now, create subsessions
     switch (stream_[stream_id].codec_id) {
-    case CODEC_ID_H264:
+    case AV_CODEC_ID_H264:
         stream_[stream_id].mine_type = "video/MPEG";
         sms = FfmpegH264ServerMediaSubsession::CreateNew(*this, stream_id,
                 False);
         break;
 
-    case CODEC_ID_MP3:
+    case AV_CODEC_ID_MP3:
         stream_[stream_id].mine_type = "audio/MPEG";
         //every mp3 frame contains 1152 samales
         stream_[stream_id].duration = (1152 * 1000000)
@@ -140,7 +140,7 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession(
                         False);
         break;
 
-    case CODEC_ID_AAC:
+    case AV_CODEC_ID_AAC:
         stream_[stream_id].mine_type = "audio/MPEG";
         //every aac frame contains 1024 sampales
         stream_[stream_id].duration = (1024 * 1000000)
@@ -148,7 +148,7 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession(
         sms = FfmpegAACServerMediaSubession::CreateNew(*this, stream_id, False);
         break;
 
-    case CODEC_ID_MPEG4:
+    case AV_CODEC_ID_MPEG4:
         stream_[stream_id].mine_type = "video/MPEG";
         sms = FfmpegMPEG4ServerMediaSubsession::CreateNew(*this, stream_id,
                 False);

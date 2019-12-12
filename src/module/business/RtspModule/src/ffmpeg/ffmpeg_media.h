@@ -1,10 +1,3 @@
-/*
- * ffmpeg_media.h
- *
- *  Created on: 2011-12-9
- *      Author: Administrator
- */
-
 #ifndef FFMPEG_MEDIA_H_
 #define FFMPEG_MEDIA_H_
 
