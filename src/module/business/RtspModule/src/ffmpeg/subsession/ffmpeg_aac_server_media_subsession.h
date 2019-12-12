@@ -1,10 +1,3 @@
-/*
- * ffmpeg_AAC_server_media_subession.h
- *
- *  Created on: 2011-12-27
- *      Author: Liang Guangwei
- */
-
 #ifndef FFMPEG_AAC_SERVER_MEDIA_SUBESSION_H_
 #define FFMPEG_AAC_SERVER_MEDIA_SUBESSION_H_
 

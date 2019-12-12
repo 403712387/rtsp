@@ -1,11 +1,4 @@
-﻿/*
- * ffmpeg_mpeg4_server_media_subsession.h
- *
- *  Created on: 2011-12-27
- *      Author: Liang Guangwei
- */
-
-#ifndef FFMPEG_MPEG4_SERVER_MEDIA_SUBSESSION_H_
+﻿#ifndef FFMPEG_MPEG4_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_MPEG4_SERVER_MEDIA_SUBSESSION_H_
 
 class FfmpegMPEG4ServerMediaSubsession: public MPEG4VideoFileServerMediaSubsession {

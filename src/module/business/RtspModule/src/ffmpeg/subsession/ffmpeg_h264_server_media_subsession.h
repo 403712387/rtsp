@@ -1,10 +1,3 @@
-/*
- * ffmpeg_H264_server_media_subsession.h
- *
- *  Created on: 2011-12-8
- *      Author: Liang Guangwei
- */
-
 #ifndef FFMPEG_H264_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_H264_SERVER_MEDIA_SUBSESSION_H_
 

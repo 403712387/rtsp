@@ -1,10 +1,3 @@
-/*
- * ffmpeg_mp3_server_media_subsession.h
- *
- *  Created on: 2011-12-8
- *      Author: Administrator
- */
-
 #ifndef FFMPEG_MP3_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_MP3_SERVER_MEDIA_SUBSESSION_H_
 
