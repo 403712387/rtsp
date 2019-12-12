@@ -1,0 +1,6 @@
+{
+	"rtsp_service": {	
+		"http_port": 6000,
+		"rtsp_port": 554,
+	}
+}
