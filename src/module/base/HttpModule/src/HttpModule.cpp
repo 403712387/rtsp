@@ -7,17 +7,20 @@
 #include "HttpHelper.h"
 #include "JsonHelper.h"
 #include "HttpModule.h"
-#include "CPUStatistic.h"
-#include "DiskStatistic.h"
-#include "PlatformInfo.h"
 #include "SystemInfo.h"
+#include "CPUStatistic.h"
+#include "PlatformInfo.h"
 #include "ConfigureInfo.h"
-#include "ProcessStatistic.h"
+#include "DiskStatistic.h"
+#include "GetTaskMessage.h"
+#include "StopTaskMessage.h"
 #include "MemoryStatistic.h"
+#include "ProcessStatistic.h"
+#include "StartTaskMessage.h"
 #include "ServiceStatusInfo.h"
+#include "ConfigureInfoMessage.h"
 #include "ServiceControlMessage.h"
 #include "GetServiceStatusMessage.h"
-#include "ConfigureInfoMessage.h"
 #include "jsoncpp/json.h"
 #include "perftool/perftool.h"
 
@@ -224,6 +227,18 @@ int HttpModule::onProcess(void *cls, MHD_Connection *connection, const char *url
     else if (requestUrl.compare("/get/platform/info", Qt::CaseInsensitive) == 0)  //  获取平台信息
     {
         response = onGetPlatformInfo();
+    }
+    else if (requestUrl.compare("/start/task", Qt::CaseInsensitive) == 0)  //  开始任务
+    {
+        response = onStartTask(body);
+    }
+    else if (requestUrl.compare("/stop/task", Qt::CaseInsensitive) == 0)  //  停止任务
+    {
+        response = onStartTask(body);
+    }
+    else if (requestUrl.compare("/get/task", Qt::CaseInsensitive) == 0)  //  获取任务
+    {
+        response = onGetTask(body);
     }
     else if (requestUrl.startsWith("/download/", Qt::CaseInsensitive))  //  下载文件
     {
@@ -496,6 +511,82 @@ std::string HttpModule::onGetPlatformInfo()
         return getResponseBody(500, "get info fail");
     }
     return result->toJson().toStyledString();
+}
+
+// 开始任务
+std::string HttpModule::onStartTask(std::string &body)
+{
+    std::string result;
+    std::string file = JsonHelper::parseFilePath(body);
+    if (file.empty())
+    {
+        result = getResponseBody(400, "invalid json");
+        return result;
+    }
+
+    // 发送消息
+    std::shared_ptr<StartTaskMessage> message = std::make_shared<StartTaskMessage>(file, Sync_Trans_Message);
+    std::shared_ptr<BaseResponse> response = sendMessage(message);
+    std::shared_ptr<StartTaskResponse> startResponse = std::dynamic_pointer_cast<StartTaskResponse>(response);
+    if (NULL == startResponse)
+    {
+        result = getResponseBody(500, "process start task fail");
+        return result;
+    }
+
+    // 解析回应
+    if (!startResponse->isSuccessfulProcess())
+    {
+        result = getResponseBody(500, startResponse->getErrorReason());
+        return result;
+    }
+
+    result = JsonHelper::stringToJson("stream", startResponse->getStreamName()).toStyledString();
+    return result;
+}
+
+// 停止任务
+std::string HttpModule::onStopTask(std::string &body)
+{
+    std::string result;
+    std::string stream = JsonHelper::parseStreamName(body);
+    if (stream.empty())
+    {
+        result = getResponseBody(400, "invalid json");
+        return result;
+    }
+
+    // 发送消息
+    std::shared_ptr<StopTaskMessage> message = std::make_shared<StopTaskMessage>(stream);
+    sendMessage(message);
+    result = getResponseBody(200, "OK");
+    return result;
+}
+
+// 获取任务
+std::string HttpModule::onGetTask(std::string &body)
+{
+    std::string result;
+
+    // 发送消息
+    std::shared_ptr<GetTaskMessage> message = std::make_shared<GetTaskMessage>(Sync_Trans_Message);
+    std::shared_ptr<BaseResponse> response = sendMessage(message);
+    std::shared_ptr<GetTaskResponse> getResponse = std::dynamic_pointer_cast<GetTaskResponse>(response);
+    if (NULL == getResponse)
+    {
+        result = getResponseBody(500, "process get task fail");
+        return result;
+    }
+
+    // 解析回应
+    if (!getResponse->isSuccessfulProcess())
+    {
+        result = getResponseBody(500, getResponse->getErrorReason());
+        return result;
+    }
+
+    result = getResponse->getTaskInfo().toStyledString();
+    return result;
 }
 
 // 获取呼应的body

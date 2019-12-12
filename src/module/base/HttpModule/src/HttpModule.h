@@ -95,6 +95,15 @@ private:
     // 获取平台信息
     std::string onGetPlatformInfo();
 
+    // 开始任务
+    std::string onStartTask(std::string &body);
+
+    // 停止任务
+    std::string onStopTask(std::string &body);
+
+    // 获取任务
+    std::string onGetTask(std::string &body);
+
     // 获取http的body
     bool getHttpBody(void *cls, MHD_Connection *connection, const char *url,const char *method, const char *version,
                      const char *upload_data, size_t *upload_data_size, void **ptr, std::string &body);

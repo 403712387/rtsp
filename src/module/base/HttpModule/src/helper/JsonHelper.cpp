@@ -116,3 +116,80 @@ bool JsonHelper::parseConfigure(std::string &info, std::shared_ptr<ConfigureInfo
 
     return true;
 }
+
+
+// 解析开始任务
+std::string JsonHelper::parseFilePath(std::string &info)
+{
+    std::string result;
+    if (info.empty())
+    {
+        return result;
+    }
+
+    Json::Reader reader;
+    Json::Value readerRoot;
+    bool ret = reader.parse(info, readerRoot);
+    if (false == ret)
+    {
+        LOG_E(mClassName, "prase file path fail");
+        return result;
+    }
+
+    try
+    {
+        // 解析file
+        if (readerRoot.isMember("file"))
+        {
+            result = readerRoot["file"].asString();
+        }
+    }
+    catch (...)
+    {
+        LOG_E(mClassName, "prase file path exception");
+    }
+
+    return result;
+}
+
+// 解析停止任务
+std::string JsonHelper::parseStreamName(std::string &info)
+{
+    std::string result;
+    if (info.empty())
+    {
+        return result;
+    }
+
+    Json::Reader reader;
+    Json::Value readerRoot;
+    bool ret = reader.parse(info, readerRoot);
+    if (false == ret)
+    {
+        LOG_E(mClassName, "prase stream fail");
+        return result;
+    }
+
+    try
+    {
+        // 解析file
+        if (readerRoot.isMember("stream"))
+        {
+            result = readerRoot["stream"].asString();
+        }
+    }
+    catch (...)
+    {
+        LOG_E(mClassName, "prase stream exception");
+    }
+
+    return result;
+}
+
+// 转换为json
+Json::Value JsonHelper::stringToJson(std::string key, std::string value)
+{
+    Json::Value result;
+    result[key] = value;
+    return result;
+}
