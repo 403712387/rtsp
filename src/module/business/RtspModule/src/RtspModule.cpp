@@ -80,8 +80,8 @@ RtspModule::RtspModule(MessageRoute *messageRoute)
 bool RtspModule::init()
 {
     LOG_I(mClassName, "begin init");
-    av_log_set_level(AV_LOG_TRACE);
     av_log_set_callback(writeFFmpegLog);
+    av_log_set_level(AV_LOG_TRACE);
     LOG_I(mClassName, "end init");
     return true;
 }

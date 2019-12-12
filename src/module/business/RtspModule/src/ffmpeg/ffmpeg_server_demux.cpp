@@ -168,7 +168,7 @@ Boolean FfmpegServerDemux::DetectedStream() {
     av_register_all();
 
     //open file
-    if (avformat_open_input (&format_ctx, filename_, NULL, NULL) != 0) {
+    if (avformat_open_input(&format_ctx, filename_, NULL, NULL) != 0) {
         return False;
     }
 
