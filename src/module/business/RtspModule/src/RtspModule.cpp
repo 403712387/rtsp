@@ -15,6 +15,58 @@
 #include "BasicUsageEnvironment.hh"
 #include "jsoncpp/json.h"
 
+extern "C"
+{
+#include "ffmpeg/libavcodec/avcodec.h"
+#include "ffmpeg/libavdevice/avdevice.h"
+#include "ffmpeg/libavformat/avformat.h"
+#include "ffmpeg/libavfilter/avfilter.h"
+#include "ffmpeg/libavutil/avutil.h"
+#include "ffmpeg/libswscale/swscale.h"
+#include "ffmpeg/libavutil/log.h"
+}
+
+#ifdef WIN32
+#define snprintf _snprintf;
+#endif
+
+void writeFFmpegLog(void* avcl, int level, const char *fmt, va_list argList)
+{
+    char buffer[1024] = {0};
+    snprintf(buffer, sizeof(buffer), fmt, argList);
+
+    std::string key = "FFmpeg";
+    switch(level)
+    {
+    case AV_LOG_FATAL:
+    case AV_LOG_QUIET:
+    case AV_LOG_PANIC:
+        LOG_F(key, buffer);
+        break;
+    case AV_LOG_ERROR:
+        LOG_E(key, buffer);
+        break;
+    case AV_LOG_WARNING:
+        LOG_W(key, buffer);
+        break;
+    case AV_LOG_INFO:
+        LOG_I(key, buffer);
+        break;
+    case AV_LOG_VERBOSE:
+        LOG_V(key, buffer);
+        break;
+    case AV_LOG_DEBUG:
+        LOG_D(key, buffer);
+        break;
+    case AV_LOG_TRACE:
+        LOG_V(key, buffer);
+        break;
+    default:
+        LOG_I(key, buffer);
+        break;
+    }
+}
+
 RtspModule::RtspModule(MessageRoute *messageRoute)
     :BaseProcess(messageRoute, "RtspModule")
 {
@@ -28,6 +80,7 @@ RtspModule::RtspModule(MessageRoute *messageRoute)
 bool RtspModule::init()
 {
     LOG_I(mClassName, "begin init");
+    av_log_set_callback(writeFFmpegLog);
     LOG_I(mClassName, "end init");
     return true;
 }
