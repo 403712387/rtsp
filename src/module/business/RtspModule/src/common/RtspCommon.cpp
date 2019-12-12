@@ -13,3 +13,10 @@ void onOggDemuxCreation(OggFileServerDemux* newDemux, void* clientData)
   creationState->demux = newDemux;
   creationState->watchVariable = 1;
 }
+
+// 获取流的名称
+std::string createStreamName()
+{
+    static long long index = 0;
+    return std::to_string(++index);
+}

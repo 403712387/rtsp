@@ -1,11 +1,13 @@
 #ifndef RTSP_COMMON_H
 #define RTSP_COMMON_H
+#include <string>
 #include "liveMedia.hh"
 
 #define NEW_SMS(description) do {\
 char const* descStr = description\
     ", streamed by the LIVE555 Media Server";\
-sms = ServerMediaSession::createNew(*mEnvironment, fileName, fileName, descStr);\
+    std::string stream = createStreamName();\
+sms = ServerMediaSession::createNew(*mEnvironment, stream.c_str(), stream.c_str(), descStr);\
 } while(0)
 
 
@@ -26,5 +28,8 @@ struct OggDemuxCreationState
 void onMatroskaDemuxCreation(MatroskaFileServerDemux* newDemux, void* clientData);
 
 void onOggDemuxCreation(OggFileServerDemux* newDemux, void* clientData);
+
+// 获取流的名称
+std::string createStreamName();
 
 #endif

@@ -33,7 +33,7 @@ public:
 
 private:
     // 创建rtsp session
-    ServerMediaSession* createSession(char const* fileName);
+    ServerMediaSession* createSession();
 
 private:
     std::string         mClassName = "RtspTask";
