@@ -235,7 +235,7 @@ int HttpModule::onProcess(void *cls, MHD_Connection *connection, const char *url
     }
     else if (requestUrl.compare("/stop/task", Qt::CaseInsensitive) == 0)  //  停止任务
     {
-        response = onStartTask(body);
+        response = onStopTask(body);
     }
     else if (requestUrl.compare("/get/task", Qt::CaseInsensitive) == 0)  //  获取任务
     {
