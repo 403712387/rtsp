@@ -207,7 +207,7 @@ ServerMediaSession* RtspTask::createSession()
   {
       NEW_SMS("ffmpeg");
       FfmpegServerDemux* demux = FfmpegServerDemux::CreateNew(*mEnvironment, mFileName.c_str(), reuseSource);
-      if (demux != NULL)
+      if (NULL != demux)
       {
           sms->addSubsession(demux->NewAudioServerMediaSubsession());
           sms->addSubsession(demux->NewVideoServerMediaSubsession());
