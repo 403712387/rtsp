@@ -12,7 +12,7 @@
 class RtspTask
 {
 public:
-    RtspTask(UsageEnvironment *environment);
+    RtspTask(RTSPServer *server, UsageEnvironment *environment);
 
     // 开始任务
     bool startTask(std::string file);
@@ -38,6 +38,7 @@ private:
 private:
     std::string         mClassName = "RtspTask";
     QDateTime           mBirthday = QDateTime::currentDateTime();
+    RTSPServer          *mRtspServer = NULL;
     UsageEnvironment    *mEnvironment = NULL;
     ServerMediaSession  *mMediaSession = NULL;
 

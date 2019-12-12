@@ -2,8 +2,9 @@
 #include "RtspTask.h"
 #include "RtspCommon.h"
 
-RtspTask::RtspTask(UsageEnvironment *environment)
+RtspTask::RtspTask(RTSPServer *server, UsageEnvironment *environment)
 {
+    mRtspServer = server;
     mEnvironment = environment;
 }
 
@@ -23,7 +24,7 @@ std::string RtspTask::getStreamName()
     std::string result;
     if (NULL != mMediaSession)
     {
-        result = mMediaSession->name();
+        mRtspServer->rtspURL(mMediaSession)();
     }
     return result;
 }
