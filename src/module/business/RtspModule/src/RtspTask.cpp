@@ -24,7 +24,7 @@ std::string RtspTask::getStreamName()
     std::string result;
     if (NULL != mMediaSession)
     {
-        mRtspServer->rtspURL(mMediaSession);
+        result = mRtspServer->rtspURL(mMediaSession);
     }
     return result;
 }
