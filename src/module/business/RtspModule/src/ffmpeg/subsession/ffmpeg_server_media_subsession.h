@@ -1,10 +1,3 @@
-/*
- * ffmpeg_server_media_subsession.h
- *
- *  Created on: 2011-12-27
- *      Author: Liang Guangwei
- */
-
 #ifndef FFMPEG_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_SERVER_MEDIA_SUBSESSION_H_
 

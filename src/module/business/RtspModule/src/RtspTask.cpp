@@ -205,6 +205,7 @@ ServerMediaSession* RtspTask::createSession()
   }
   else if (strcmp(extension, ".avi") == 0 || strcmp(extension, ".mp4") == 0)
   {
+      OutPacketBuffer::maxSize = 800000;
       NEW_SMS("ffmpeg");
       FfmpegServerDemux* demux = FfmpegServerDemux::CreateNew(*mEnvironment, mFileName.c_str(), reuseSource);
       if (NULL != demux)

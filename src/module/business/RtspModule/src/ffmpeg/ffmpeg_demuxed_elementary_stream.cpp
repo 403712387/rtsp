@@ -57,16 +57,6 @@ void FfmpegDemuxedElementaryStream::AfterGettingFrame1(unsigned  frame_size,
     fPresentationTime.tv_usec %= 1000000;
     fDurationInMicroseconds = duration_;
 
-#ifdef EX_DEBUG
-    envir() << "stream " << stream_id_ << "  ";
-        envir()<< "frame size " << frame_size << "  ";
-        envir()<< "truncated bytes " << num_truncated_bytes << "  ";
-        envir()<< "presentation time " << (double)(fPresentationTime.tv_sec) << "  " ;
-        envir()<< (double)(fPresentationTime.tv_usec) << "  "
-        << "duration" << fDurationInMicroseconds << "  "
-        << "\n";
-#endif
-
     FramedSource::afterGetting(this);
 }
 

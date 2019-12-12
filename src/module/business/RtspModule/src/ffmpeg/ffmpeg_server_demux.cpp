@@ -199,13 +199,6 @@ Boolean FfmpegServerDemux::DetectedStream() {
                     / format_ctx->streams[i]->r_frame_rate.den;
             stream_[i].duration = 1000000 / framerate;
 
-#ifdef EX_DEBUG
-            envir() << "video stream information:\n";
-            envir() << "stream :" << i << "\n";
-            envir() << "frame rate:" << framerate << "\n";
-            envir() << "duration : " << stream_[i].duration << "\n";
-#endif
-
             break;
         }
     }
@@ -228,13 +221,6 @@ Boolean FfmpegServerDemux::DetectedStream() {
                     codec->extradata_size);
             stream_[i].extra_data[stream_[i].extra_data_size] = 0;
             //duration set later
-
-#ifdef EX_DEBUG
-            envir() << "audio stream information:\n";
-            envir() << "stream No.:" << i << "\n";
-            envir() << "channels: " << stream_[i].channels << "\n";
-            envir() << "sample rate:  " << stream_[i].sample_rate << "\n";
-#endif
 
             break;
         }

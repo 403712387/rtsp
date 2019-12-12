@@ -142,23 +142,12 @@ Boolean FfmpegDemux::UseSavedData(u_int8_t stream_id_tag, unsigned char *to,
     if (out.saved_data_head == NULL)
         return False; // common case
 
-#ifdef EX_DEBUG
-    envir() << "stream " << stream_id_tag << "\t";
-    envir() << "enter UseSavedData, data counts:" << out.data_counts << "\n";
-#endif
-
     unsigned totNumBytesCopied = 0;
     do {
         SavedData& savedData = *(out.saved_data_head);
         unsigned char* from = &savedData.data_[savedData.num_bytes_used_];
         unsigned numBytesToCopy = savedData.data_size_
                 - savedData.num_bytes_used_;
-
-#ifdef EX_DEBUG
-        envir() << "stream " << stream_id_tag << "  ";
-        envir() << "enter UseSavedData, data counts:" << out.data_counts << "  ";
-        envir() << savedData.data_size_ << "  " << numBytesToCopy << "\n";
-#endif
 
         if (numBytesToCopy > max_size)
             numBytesToCopy = max_size;
