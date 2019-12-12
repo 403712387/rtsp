@@ -68,6 +68,18 @@ void ConfigureJson::setHttpPort(int port)
     saveConfigure();
 }
 
+// 设置rtsp接口
+int ConfigureJson::getRtspPort()
+{
+    return mRtspPort;
+}
+
+// 设置rtsp接口
+void ConfigureJson::setRtspPort(int port)
+{
+    mRtspPort = port;
+}
+
 // 保存到配置文件
 bool ConfigureJson::saveConfigure()
 {
@@ -78,7 +90,7 @@ bool ConfigureJson::saveConfigure()
     jsonValue[rtspService]["http_port"] = mHttpPort;
 
     // rtsp端口
-    jsonValue[rtspService]["rtsp_port"] = mHttpPort;
+    jsonValue[rtspService]["rtsp_port"] = mRtspPort;
 
     // 保存成文件
     std::string configureData = jsonValue.toStyledString();

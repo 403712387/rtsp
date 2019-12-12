@@ -73,7 +73,8 @@ void ConfigureModule::setConfigureInfo()
     }
 
     // 设置监听的端口
-    mConfigureInfo->setHttpPort(mConfigureFile->getHttpPort(6000));
+    mConfigureInfo->setHttpPort(mConfigureFile->getHttpPort(6002));
+    mConfigureInfo->setRtspPort(mConfigureFile->getRtspPort());
 
     // 设置日志级别
     mConfigureInfo->setLogLevel(common_log::getLogLevel());
@@ -100,6 +101,7 @@ std::shared_ptr<BaseResponse> ConfigureModule::onProcessConfigMessage(std::share
 
     // 更新配置文件
     mConfigureFile->setHttpPort(mConfigureInfo->getHttpPort());
+    mConfigureFile->setRtspPort(mConfigureInfo->getRtspPort());
 
     return response;
 }

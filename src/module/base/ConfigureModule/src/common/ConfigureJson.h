@@ -11,10 +11,16 @@ public:
     ConfigureJson(std::string file);
 
     // 获取http接口
-    int getHttpPort(int defaultPort = 6000);
+    int getHttpPort(int defaultPort = 6002);
 
     // 设置http接口
     void setHttpPort(int port);
+
+    // 设置rtsp接口
+    int getRtspPort();
+
+    // 设置rtsp接口
+    void setRtspPort(int port);
 
     std::string toString();
 

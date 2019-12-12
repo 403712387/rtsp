@@ -35,7 +35,7 @@ private:
     common_log::Log_Level       mLogLevel = common_log::Log_Level_Info; // 默认日志的级别时info级别
     std::string                 mLogKeyword;
 
-    int                         mHttpPort = 6000;       // 本机监听的端口
+    int                         mHttpPort = 6002;       // 本机监听的端口
     int                         mRtspPort = 554;        // rtsp监听端口
 };
 
