@@ -18,5 +18,5 @@ void onOggDemuxCreation(OggFileServerDemux* newDemux, void* clientData)
 std::string createStreamName()
 {
     static long long index = 0;
-    return std::to_string(++index);
+    return "LanZongNiubility/" + std::to_string(++index);
 }
