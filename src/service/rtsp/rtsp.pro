@@ -34,7 +34,7 @@ LIBS += -L../../bin/rtsp/lib/module -lCommon -lCoreModule -lHttpModule -lService
         -L../../../thirdparty/lib/linux64/curl -lcurl \
         -L../../../thirdparty/lib/linux64/gperftools/static -lprofiler -ltcmalloc \
         -L../../../thirdparty/lib/linux64/libmicrohttpd  -lmicrohttpd \
-        -L../../../thirdparty/lib/windows64/live555 -llive555 \
+        -L../../../thirdparty/lib/linux64/live555 -llive555 \
         -L../../../thirdparty/lib/linux64/Qt -lQt5Core -licudata -licui18n -licuuc \
         -luuid
 }
