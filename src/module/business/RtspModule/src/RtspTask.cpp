@@ -23,7 +23,7 @@ std::string RtspTask::getStreamName()
     std::string result;
     if (NULL != mMediaSession)
     {
-        result = mMediaSession->streamName();
+        result = mMediaSession->name();
     }
     return result;
 }
