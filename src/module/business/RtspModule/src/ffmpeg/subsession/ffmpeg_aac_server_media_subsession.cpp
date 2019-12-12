@@ -6,9 +6,9 @@
  */
 #include "BasicUsageEnvironment.hh"
 #include "liveMedia.hh"
-#include "../ffmpeg_demux.h"
-#include "../ffmpeg_server_demux.h"
-#include "../ffmpeg_demuxed_elementary_stream.h"
+#include "ffmpeg_demux.h"
+#include "ffmpeg_server_demux.h"
+#include "ffmpeg_demuxed_elementary_stream.h"
 #include "ffmpeg_aac_server_media_subsession.h"
 
 FfmpegAACServerMediaSubession *FfmpegAACServerMediaSubession::CreateNew(
