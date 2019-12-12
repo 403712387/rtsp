@@ -121,7 +121,7 @@ std::shared_ptr<BaseResponse> RtspModule::onProcessStartTaskMessage(std::shared_
         return response;
     }
 
-    std::string url = std::string(mRtspServer->rtspURLPrefix()) + "/" + task->getStreamName();
+    std::string url = task->getStreamName();
     response = std::make_shared<StartTaskResponse>(url, message, Common::noError());
     return response;
 }
@@ -178,7 +178,7 @@ bool RtspModule::startListen()
 // 添加task
 std::shared_ptr<RtspTask> RtspModule::addTask(std::string fileName)
 {
-    std::shared_ptr<RtspTask> task = std::make_shared<RtspTask>(mRtspEnvironment);
+    std::shared_ptr<RtspTask> task = std::make_shared<RtspTask>(mRtspServer, mRtspEnvironment);
     bool ret = task->startTask(fileName);
     if (!ret)
     {
