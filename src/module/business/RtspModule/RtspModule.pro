@@ -30,7 +30,7 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
 }
 
 unix {
-DEFINES += LIVE555_EXPORT
+DEFINES += LIVE555_EXPORT=
 LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
         -L../../../../thirdparty/lib/linux64/Qt -lQt5Core \
         -L../../../../thirdparty/lib/linux64/jsoncpp  -ljsoncpp
