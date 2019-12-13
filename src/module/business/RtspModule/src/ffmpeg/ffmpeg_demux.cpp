@@ -319,11 +319,13 @@ int FFmpegDemux::Parse()
     AVPacket packet;
     int acquired_stream_id = -1;
     int stream_id = -1;
+    bool isDone = false;
 
     do
     {
         Boolean has_extra_data = False;
-        if (ReadOneFrame(&packet, has_extra_data) == 0)
+        int ret = ReadOneFrame(&packet, has_extra_data);
+        if (ret != 0)
         {
             stream_id = packet.stream_index;
             OutputDescriptor_t& out = output_[stream_id];
@@ -390,12 +392,16 @@ int FFmpegDemux::Parse()
                 break;
             }
         }
+        else if (-1 == ret)
+        {
+            isDone = true;
+        }
 
         av_free_packet(&packet);
-#if 1
+#if 0
     } while (acquired_stream_id == -1);
 #else
-    } while(false);
+    } while(!isDone);
 #endif
 
     return acquired_stream_id;
@@ -441,10 +447,16 @@ int FFmpegDemux::ReadOneFrame(AVPacket* packet, boolean &has_extra_data)
     int stream_id = -1;
     char const* extension = strrchr(format_ctx_->filename, '.');
 
-    if (av_read_frame(format_ctx_, packet) != 0)
+    int ret = av_read_frame(format_ctx_, packet);
+    if (AVERROR_EOF == ret)
     {
         return -1;
     }
+    else if (ret != 0)
+    {
+        return -2;
+    }
+
     stream_id = packet->stream_index;
 
     //for mp4, some encoded parameters is stored in extradata
