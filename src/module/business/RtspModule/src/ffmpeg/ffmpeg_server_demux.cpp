@@ -1,20 +1,15 @@
-/*
- * FfmpegDemux.cpp
- *
- *  Created on: 2011-12-8
- *      Author: Liang Guangwei
- */
-
-#include "BasicUsageEnvironment.hh"
-#include "liveMedia.hh"
-#include "ffmpeg_demuxed_elementary_stream.h"
-#include "subsession/ffmpeg_server_media_subsession.h"
-#include "ffmpeg_demux.h"
-#include "ffmpeg_server_demux.h"
-#include <iostream>
 #include <cstdio>
 #include <cstring>
-extern "C" {
+#include <iostream>
+#include "liveMedia.hh"
+#include "ffmpeg_demux.h"
+#include "ffmpeg_server_demux.h"
+#include "BasicUsageEnvironment.hh"
+#include "ffmpeg_demuxed_elementary_stream.h"
+#include "subsession/ffmpeg_server_media_subsession.h"
+
+extern "C"
+{
 #include "libavutil/avutil.h"
 #include "libavformat/avformat.h"
 }
@@ -25,23 +20,25 @@ extern "C" {
 #define AVMEDIA_TYPE_VIDEO 0
 #define AVMEDIA_TYPE_AUDIO 1
 
-FfmpegServerDemux *FfmpegServerDemux::CreateNew(UsageEnvironment& env,
-        char const* filename, Boolean reuse_source) {
+FfmpegServerDemux *FfmpegServerDemux::CreateNew(UsageEnvironment& env, char const* filename, Boolean reuse_source)
+{
     return new FfmpegServerDemux(env, filename, reuse_source);
 }
 
-FfmpegServerDemux::~FfmpegServerDemux() {
+FfmpegServerDemux::~FfmpegServerDemux()
+{
     Medium::close(session0_demux_);
     delete[] filename_;
 
-    for (int i = 0; i < MAX_STREAM_NUM; ++i) {
+    for (int i = 0; i < MAX_STREAM_NUM; ++i)
+    {
         delete[] stream_[i].extra_data;
     }
 }
 
-FfmpegServerDemux::FfmpegServerDemux(UsageEnvironment& env,
-        char const* file_name, Boolean reuse_source) :
-    Medium(env), reuse_source_(reuse_source) {
+FfmpegServerDemux::FfmpegServerDemux(UsageEnvironment& env, char const* file_name, Boolean reuse_source)
+    : Medium(env), reuse_source_(reuse_source)
+{
     filename_ = strDup(file_name);
 
     session0_demux_ = NULL;
@@ -52,32 +49,37 @@ FfmpegServerDemux::FfmpegServerDemux(UsageEnvironment& env,
     audio_stream_id_ = -1;
 
     std::memset(&stream_[0], 0, sizeof(StreamInfo) * MAX_STREAM_NUM);
-    for (int i = 0; i < MAX_STREAM_NUM; ++i) {
-
+    for (int i = 0; i < MAX_STREAM_NUM; ++i)
+    {
         stream_[i].codec_id = AV_CODEC_ID_NONE;
         stream_[i].channels = 1;
     }
 }
 
-FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(
-        unsigned client_session_id, u_int8_t stream_id) {
+FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(unsigned client_session_id, u_int8_t stream_id)
+{
     FfmpegDemux* demux_to_use = NULL;
 
-    if (client_session_id == 0) {
+    if (client_session_id == 0)
+    {
         // 'Session 0' is treated especially, because its audio & video streams
         // are created and destroyed one-at-a-time, rather than both streams being
         // created, and then (later) both streams being destroyed (as is the case
         // for other ('real') session ids).  Because of this, a separate demux is
         // used for session 0, and its deletion is managed by us, rather than
         // happening automatically.
-        if (session0_demux_ == NULL) {
+        if (session0_demux_ == NULL)
+        {
             session0_demux_ = FfmpegDemux::CreateNew(envir(), filename_, False);
         }
         demux_to_use = session0_demux_;
-    } else {
+    }
+    else
+    {
         // First, check whether this is a new client session.  If so, create a new
         // demux for it:
-        if (client_session_id != last_client_session_id_) {
+        if (client_session_id != last_client_session_id_)
+        {
             last_created_demux_ = FfmpegDemux::CreateNew(envir(), filename_, True);
             // Note: We tell the demux to delete itself when its last
             // elementary stream is deleted.
@@ -90,17 +92,20 @@ FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(
     }
 
     if (demux_to_use == NULL)
+    {
         return NULL; // shouldn't happen
+    }
 
-    return demux_to_use->NewElementaryStream(stream_id,
-            stream_[stream_id].mine_type, stream_[stream_id].duration);
+    return demux_to_use->NewElementaryStream(stream_id, stream_[stream_id].mine_type, stream_[stream_id].duration);
 }
 
-ServerMediaSubsession *FfmpegServerDemux::NewAudioServerMediaSubsession() {
+ServerMediaSubsession *FfmpegServerDemux::NewAudioServerMediaSubsession()
+{
     return NewServerMediaSubsession(AVMEDIA_TYPE_AUDIO);
 }
 
-ServerMediaSubsession *FfmpegServerDemux::NewVideoServerMediaSubsession() {
+ServerMediaSubsession *FfmpegServerDemux::NewVideoServerMediaSubsession()
+{
     return NewServerMediaSubsession(AVMEDIA_TYPE_VIDEO);
 }
 
@@ -133,6 +138,10 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession( unsigned int
     case AV_CODEC_ID_H264:
         stream_[stream_id].mine_type = "video/MPEG";
         sms = FfmpegH264ServerMediaSubsession::CreateNew(*this, stream_id, False);
+        break;
+    case AV_CODEC_ID_H265:
+        stream_[stream_id].mine_type = "video/MPEG";
+        sms = FfmpegH265ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
     case AV_CODEC_ID_MP3:
         stream_[stream_id].mine_type = "audio/MPEG";
@@ -193,7 +202,7 @@ Boolean FfmpegServerDemux::DetectedStream()
             stream_[i].extra_data
                     = new unsigned char[stream_[i].extra_data_size + 1];
             std::memcpy(stream_[i].extra_data, codec->extradata,
-                    codec->extradata_size);
+                        codec->extradata_size);
             stream_[i].extra_data[stream_[i].extra_data_size] = 0;
 
             int framerate = format_ctx->streams[i]->r_frame_rate.num

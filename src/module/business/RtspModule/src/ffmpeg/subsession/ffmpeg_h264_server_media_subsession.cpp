@@ -1,9 +1,3 @@
-/*
- * ffmpeg_H264_server_media_subsession.cpp
- *
- *  Created on: 2011-12-8
- *      Author: Liang Guangwei
- */
 #include "BasicUsageEnvironment.hh"
 #include "liveMedia.hh"
 #include "ffmpeg_demux.h"

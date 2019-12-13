@@ -1,6 +1,5 @@
 #ifndef FFMPEGDEMUX_H_
 #define FFMPEGDEMUX_H_
-
 #define MAX_STREAM_NUM 5
 
 class FfmpegDemuxedElementaryStream;
@@ -20,17 +19,14 @@ struct StreamInfo {
 
 class FfmpegServerDemux: public Medium{
 public:
-    static FfmpegServerDemux* CreateNew(UsageEnvironment& env, char const* filename,
-            Boolean reuse_source);
+    static FfmpegServerDemux* CreateNew(UsageEnvironment& env, char const* filename, Boolean reuse_source);
 
 private:
     virtual ~FfmpegServerDemux();
-    FfmpegServerDemux(UsageEnvironment& env, char const* filename,
-            Boolean reuse_source);
+    FfmpegServerDemux(UsageEnvironment& env, char const* filename, Boolean reuse_source);
 
 public:
-    FfmpegDemuxedElementaryStream* NewElementaryStream(
-            unsigned client_session_id, u_int8_t stream_id);
+    FfmpegDemuxedElementaryStream* NewElementaryStream(unsigned client_session_id, u_int8_t stream_id);
 
     //
     //the follow tow functions called in class FfmpegDemux

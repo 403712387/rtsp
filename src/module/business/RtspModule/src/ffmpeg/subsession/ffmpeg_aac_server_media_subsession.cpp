@@ -1,9 +1,3 @@
-/*
- * ffmpeg_AAC_server_media_subession.cpp
- *
- *  Created on: 2011-12-27
- *      Author: Liang Guangwei
- */
 #include "BasicUsageEnvironment.hh"
 #include "liveMedia.hh"
 #include "ffmpeg_demux.h"

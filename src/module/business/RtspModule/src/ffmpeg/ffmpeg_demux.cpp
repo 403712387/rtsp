@@ -1,9 +1,3 @@
-/*
- * ffmpeg_demux.cpp
- *
- *  Created on: 2011-12-9
- *      Author: Liang Guangwei
- */
 #include "BasicUsageEnvironment.hh"
 #include "liveMedia.hh"
 #include "ffmpeg_demuxed_elementary_stream.h"

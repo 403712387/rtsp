@@ -1,10 +1,4 @@
-﻿/*
- * ffmpeg_mpeg4_server_media_subsession.cpp
- *
- *  Created on: 2011-12-27
- *      Author: Liang Guangwei
- */
-#include "BasicUsageEnvironment.hh"
+﻿#include "BasicUsageEnvironment.hh"
 #include "liveMedia.hh"
 #include "ffmpeg_demux.h"
 #include "ffmpeg_server_demux.h"

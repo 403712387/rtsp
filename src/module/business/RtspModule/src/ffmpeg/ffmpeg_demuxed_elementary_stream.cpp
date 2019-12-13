@@ -1,9 +1,3 @@
-/*
- * FfmpegDemuxedElementaryStream.cpp
- *
- *  Created on: 2011-12-8
- *      Author: Administrator
- */
 #include "liveMedia.hh"
 #include <GroupsockHelper.hh> 
 #include "ffmpeg_demux.h"
