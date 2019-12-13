@@ -398,10 +398,10 @@ int FFmpegDemux::Parse()
         }
 
         av_free_packet(&packet);
-#if 1
+#if 0
     } while (acquired_stream_id == -1);
 #else
-    } while(!isDone);
+    } while(acquired_stream_id == -1 && !isDone);
 #endif
 
     return acquired_stream_id;
