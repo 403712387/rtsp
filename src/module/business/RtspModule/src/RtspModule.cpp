@@ -40,6 +40,11 @@ void RtspModule::beginWork()
 // 反初始化
 void RtspModule::uninit()
 {
+    if (mRtspThread.joinable())
+    {
+        stopListen();
+        mRtspThread.join();
+    }
     BaseProcess::uninit();
     LOG_I(mClassName, "uninit rtsp module");
 }
@@ -181,6 +186,17 @@ bool RtspModule::startListen()
 
     mRtspServer = RTSPServer::createNew(*mRtspEnvironment, mConfigureInfo->getRtspPort(), NULL);
     mRtspEnvironment->taskScheduler().doEventLoop();
+    return true;
+}
+
+// 停止监听
+bool RtspModule::stopListen()
+{
+    LOG_I(mClassName, "begin stop listen");
+    RTSPServer::close(*mRtspEnvironment, NULL);
+    mRtspEnvironment = NULL;
+    mRtspServer = NULL;
+    LOG_I(mClassName, "end stop listen");
     return true;
 }
 

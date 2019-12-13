@@ -48,6 +48,9 @@ private:
     // 开始监听
     bool startListen();
 
+    // 停止监听
+    bool stopListen();
+
     // 工作线程
     void rtspListenThread();
 
