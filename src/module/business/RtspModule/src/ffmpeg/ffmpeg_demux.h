@@ -55,8 +55,6 @@ private:
 
     u_int8_t Parse();
 
-    int ParseH264ExtraDataInMp4(int stream_id);
-
     int ReadOneFrame(AVPacket* packet, Boolean &has_extra_data);
 
     int CopyData(void* dst, int dst_max_size, const void* src, int src_size);
