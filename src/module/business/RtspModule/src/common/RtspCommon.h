@@ -6,7 +6,7 @@
 #define NEW_SMS(description) do {\
 char const* descStr = description\
     ", streamed by the LIVE555 Media Server";\
-    std::string stream = createStreamName();\
+    std::string stream = createStreamName(mFileName);\
 sms = ServerMediaSession::createNew(*mEnvironment, stream.c_str(), stream.c_str(), descStr);\
 } while(0)
 
@@ -30,6 +30,6 @@ void onMatroskaDemuxCreation(MatroskaFileServerDemux* newDemux, void* clientData
 void onOggDemuxCreation(OggFileServerDemux* newDemux, void* clientData);
 
 // 获取流的名称
-std::string createStreamName();
+std::string createStreamName(std::string url);
 
 #endif
