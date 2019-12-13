@@ -63,6 +63,9 @@ private:
     // 根据stream获取task
     std::shared_ptr<RtspTask> getTask(std::string stream);
 
+    // 根据文件名找task
+    std::shared_ptr<RtspTask> getTaskByFileName(std::string file);
+
     // 删除task
     bool removeTask(std::string stream);
 
