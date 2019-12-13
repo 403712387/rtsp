@@ -319,7 +319,7 @@ int FFmpegDemux::Parse()
     AVPacket packet;
     int acquired_stream_id = -1;
     int stream_id = -1;
-    bool isDone = false;
+    bool isEndOfFile = false;
 
     do
     {
@@ -394,14 +394,14 @@ int FFmpegDemux::Parse()
         }
         else if (-1 == ret)
         {
-            isDone = true;
+            isEndOfFile = true;
         }
 
         av_free_packet(&packet);
 #if 0
     } while (acquired_stream_id == -1);
 #else
-    } while(acquired_stream_id == -1 && !isDone);
+    } while(acquired_stream_id == -1 && !isEndOfFile);
 #endif
 
     return acquired_stream_id;
