@@ -5,22 +5,22 @@
 #include "ffmpeg_demuxed_elementary_stream.h"
 #include "ffmpeg_mpeg4_server_media_subsession.h"
 
-FfmpegMPEG4ServerMediaSubsession *FfmpegMPEG4ServerMediaSubsession::CreateNew(FfmpegServerDemux & demux, u_int8_t stream_id, Boolean reuse_source)
+FFmpegMPEG4ServerMediaSubsession *FFmpegMPEG4ServerMediaSubsession::CreateNew(FFmpegServerDemux & demux, u_int8_t stream_id, Boolean reuse_source)
 {
-    return new FfmpegMPEG4ServerMediaSubsession(demux, stream_id, reuse_source);
+    return new FFmpegMPEG4ServerMediaSubsession(demux, stream_id, reuse_source);
 }
 
 
-FfmpegMPEG4ServerMediaSubsession::FfmpegMPEG4ServerMediaSubsession( FfmpegServerDemux & demux, u_int8_t stream_id, Boolean reuse_source)
+FFmpegMPEG4ServerMediaSubsession::FFmpegMPEG4ServerMediaSubsession( FFmpegServerDemux & demux, u_int8_t stream_id, Boolean reuse_source)
     : MPEG4VideoFileServerMediaSubsession(demux.envir(), NULL, reuse_source), ffmpeg_demux_(demux), stream_id_(stream_id){
 }
 
-FfmpegMPEG4ServerMediaSubsession::~FfmpegMPEG4ServerMediaSubsession()
+FFmpegMPEG4ServerMediaSubsession::~FFmpegMPEG4ServerMediaSubsession()
 {
     // TODO Auto-generated destructor stub
 }
 
-FramedSource *FfmpegMPEG4ServerMediaSubsession::createNewStreamSource(unsigned  clientSessionId, unsigned  &estBitrate)
+FramedSource *FFmpegMPEG4ServerMediaSubsession::createNewStreamSource(unsigned  clientSessionId, unsigned  &estBitrate)
 {
     estBitrate = 500; //kbps，estimate
 

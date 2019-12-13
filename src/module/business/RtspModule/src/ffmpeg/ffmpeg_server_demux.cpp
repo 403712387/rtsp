@@ -20,12 +20,12 @@ extern "C"
 #define AVMEDIA_TYPE_VIDEO 0
 #define AVMEDIA_TYPE_AUDIO 1
 
-FfmpegServerDemux *FfmpegServerDemux::CreateNew(UsageEnvironment& env, char const* filename, Boolean reuse_source)
+FFmpegServerDemux *FFmpegServerDemux::CreateNew(UsageEnvironment& env, char const* filename, Boolean reuse_source)
 {
-    return new FfmpegServerDemux(env, filename, reuse_source);
+    return new FFmpegServerDemux(env, filename, reuse_source);
 }
 
-FfmpegServerDemux::~FfmpegServerDemux()
+FFmpegServerDemux::~FFmpegServerDemux()
 {
     Medium::close(session0_demux_);
     delete[] filename_;
@@ -36,7 +36,7 @@ FfmpegServerDemux::~FfmpegServerDemux()
     }
 }
 
-FfmpegServerDemux::FfmpegServerDemux(UsageEnvironment& env, char const* file_name, Boolean reuse_source)
+FFmpegServerDemux::FFmpegServerDemux(UsageEnvironment& env, char const* file_name, Boolean reuse_source)
     : Medium(env), reuse_source_(reuse_source)
 {
     filename_ = strDup(file_name);
@@ -56,9 +56,9 @@ FfmpegServerDemux::FfmpegServerDemux(UsageEnvironment& env, char const* file_nam
     }
 }
 
-FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(unsigned client_session_id, u_int8_t stream_id)
+FFmpegDemuxedElementaryStream *FFmpegServerDemux::NewElementaryStream(unsigned client_session_id, u_int8_t stream_id)
 {
-    FfmpegDemux* demux_to_use = NULL;
+    FFmpegDemux* demux_to_use = NULL;
 
     if (client_session_id == 0)
     {
@@ -70,7 +70,7 @@ FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(unsigned c
         // happening automatically.
         if (session0_demux_ == NULL)
         {
-            session0_demux_ = FfmpegDemux::CreateNew(envir(), filename_, False);
+            session0_demux_ = FFmpegDemux::CreateNew(envir(), filename_, False);
         }
         demux_to_use = session0_demux_;
     }
@@ -80,7 +80,7 @@ FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(unsigned c
         // demux for it:
         if (client_session_id != last_client_session_id_)
         {
-            last_created_demux_ = FfmpegDemux::CreateNew(envir(), filename_, True);
+            last_created_demux_ = FFmpegDemux::CreateNew(envir(), filename_, True);
             // Note: We tell the demux to delete itself when its last
             // elementary stream is deleted.
             last_client_session_id_ = client_session_id;
@@ -99,17 +99,17 @@ FfmpegDemuxedElementaryStream *FfmpegServerDemux::NewElementaryStream(unsigned c
     return demux_to_use->NewElementaryStream(stream_id, stream_[stream_id].mine_type, stream_[stream_id].duration);
 }
 
-ServerMediaSubsession *FfmpegServerDemux::NewAudioServerMediaSubsession()
+ServerMediaSubsession *FFmpegServerDemux::NewAudioServerMediaSubsession()
 {
     return NewServerMediaSubsession(AVMEDIA_TYPE_AUDIO);
 }
 
-ServerMediaSubsession *FfmpegServerDemux::NewVideoServerMediaSubsession()
+ServerMediaSubsession *FFmpegServerDemux::NewVideoServerMediaSubsession()
 {
     return NewServerMediaSubsession(AVMEDIA_TYPE_VIDEO);
 }
 
-ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession( unsigned int type)
+ServerMediaSubsession *FFmpegServerDemux::NewServerMediaSubsession( unsigned int type)
 {
     ServerMediaSubsession *sms = NULL;
     int stream_id = -1;
@@ -137,29 +137,29 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession( unsigned int
     {
     case AV_CODEC_ID_H264:
         stream_[stream_id].mine_type = "video/MPEG";
-        sms = FfmpegH264ServerMediaSubsession::CreateNew(*this, stream_id, False);
+        sms = FFmpegH264ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
     case AV_CODEC_ID_H265:
         stream_[stream_id].mine_type = "video/MPEG";
-        sms = FfmpegH265ServerMediaSubsession::CreateNew(*this, stream_id, False);
+        sms = FFmpegH265ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
     case AV_CODEC_ID_MP3:
         stream_[stream_id].mine_type = "audio/MPEG";
         //every mp3 frame contains 1152 samales
         stream_[stream_id].duration = (1152 * 1000000) / stream_[stream_id].sample_rate;
-        sms = FfmpegMp3ServerMediaSubsession::CreateNew(*this, stream_id, False);
+        sms = FFmpegMp3ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
 
     case AV_CODEC_ID_AAC:
         stream_[stream_id].mine_type = "audio/MPEG";
         //every aac frame contains 1024 sampales
         stream_[stream_id].duration = (1024 * 1000000) / stream_[stream_id].sample_rate;
-        sms = FfmpegAACServerMediaSubession::CreateNew(*this, stream_id, False);
+        sms = FFmpegAACServerMediaSubession::CreateNew(*this, stream_id, False);
         break;
 
     case AV_CODEC_ID_MPEG4:
         stream_[stream_id].mine_type = "video/MPEG";
-        sms = FfmpegMPEG4ServerMediaSubsession::CreateNew(*this, stream_id, False);
+        sms = FFmpegMPEG4ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
     default:
         //can not find required stream
@@ -168,7 +168,7 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession( unsigned int
     return sms;
 }
 
-Boolean FfmpegServerDemux::DetectedStream()
+Boolean FFmpegServerDemux::DetectedStream()
 {
     struct AVFormatContext *format_ctx = NULL;
 
@@ -243,12 +243,12 @@ Boolean FfmpegServerDemux::DetectedStream()
     return True;
 }
 
-char const* FfmpegServerDemux::MIMEtype(int stream_id)
+char const* FFmpegServerDemux::MIMEtype(int stream_id)
 {
     return stream_[stream_id].mine_type;
 }
 
-const StreamInfo* FfmpegServerDemux::GetStreamInfo(int stream_id)
+const StreamInfo* FFmpegServerDemux::GetStreamInfo(int stream_id)
 {
     return &stream_[stream_id];
 }

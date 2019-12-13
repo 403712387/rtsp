@@ -1,20 +1,20 @@
 #ifndef FFMPEGDEMUXEDELEMENTARYSTREAM_H_
 #define FFMPEGDEMUXEDELEMENTARYSTREAM_H_
-class FfmpegDemux;
-class FfmpegDemuxedElementaryStream: public FramedSource {
+class FFmpegDemux;
+class FFmpegDemuxedElementaryStream: public FramedSource {
 public:
-   static FfmpegDemuxedElementaryStream* CreateNew(
+   static FFmpegDemuxedElementaryStream* CreateNew(
             UsageEnvironment& env,
             u_int8_t stream_id,
-            FfmpegDemux& demux,
+            FFmpegDemux& demux,
             char const* mine_type,
             unsigned duration);
 private:
-    virtual ~FfmpegDemuxedElementaryStream();
-    FfmpegDemuxedElementaryStream(
+    virtual ~FFmpegDemuxedElementaryStream();
+    FFmpegDemuxedElementaryStream(
             UsageEnvironment& env,
             u_int8_t stream_id,
-            FfmpegDemux& demux,
+            FFmpegDemux& demux,
             char const* mine_type,
             unsigned duration);
 
@@ -33,7 +33,7 @@ private:
                 struct timeval presentation_time,
                 unsigned duration_in_microseconds);
 private:
-    FfmpegDemux &ffmpeg_demux_;
+    FFmpegDemux &ffmpeg_demux_;
     u_int8_t stream_id_;
     char const* mine_type_;
     unsigned duration_;

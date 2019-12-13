@@ -207,7 +207,7 @@ ServerMediaSession* RtspTask::createSession()
   {
       OutPacketBuffer::maxSize = 800000;
       NEW_SMS("ffmpeg");
-      FfmpegServerDemux* demux = FfmpegServerDemux::CreateNew(*mEnvironment, mFileName.c_str(), reuseSource);
+      FFmpegServerDemux* demux = FFmpegServerDemux::CreateNew(*mEnvironment, mFileName.c_str(), reuseSource);
       if (NULL != demux)
       {
           //sms->addSubsession(demux->NewAudioServerMediaSubsession());

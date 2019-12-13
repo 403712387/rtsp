@@ -3,21 +3,21 @@
 
 //though inherit from H264VideoFileServerMediaSubsession, we don't use the function
 //about dealing file.
-class FfmpegServerDemux;
-class FfmpegH265ServerMediaSubsession: public H265VideoFileServerMediaSubsession
+class FFmpegServerDemux;
+class FFmpegH265ServerMediaSubsession: public H265VideoFileServerMediaSubsession
 {
 public:
-    static FfmpegH265ServerMediaSubsession* CreateNew(FfmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_sourc);
+    static FFmpegH265ServerMediaSubsession* CreateNew(FFmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_sourc);
 
 private:
-    virtual ~FfmpegH265ServerMediaSubsession();
-    FfmpegH265ServerMediaSubsession(FfmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_sourc);
+    virtual ~FFmpegH265ServerMediaSubsession();
+    FFmpegH265ServerMediaSubsession(FFmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_sourc);
 
 protected:  //redefined virtual functions
     //
     virtual FramedSource* createNewStreamSource(unsigned clientSessionId, unsigned& estBitrate);
 private:
-    FfmpegServerDemux& ffmpeg_demux_;
+    FFmpegServerDemux& ffmpeg_demux_;
     u_int8_t stream_id_;
 
 };

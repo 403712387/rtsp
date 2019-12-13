@@ -2,8 +2,8 @@
 #define FFMPEGDEMUX_H_
 #define MAX_STREAM_NUM 5
 
-class FfmpegDemuxedElementaryStream;
-class FfmpegDemux;
+class FFmpegDemuxedElementaryStream;
+class FFmpegDemux;
 
 struct StreamInfo {
     char const* mine_type;
@@ -17,22 +17,22 @@ struct StreamInfo {
     unsigned int channels;
 };
 
-class FfmpegServerDemux: public Medium{
+class FFmpegServerDemux: public Medium{
 public:
-    static FfmpegServerDemux* CreateNew(UsageEnvironment& env, char const* filename, Boolean reuse_source);
+    static FFmpegServerDemux* CreateNew(UsageEnvironment& env, char const* filename, Boolean reuse_source);
 
 private:
-    virtual ~FfmpegServerDemux();
-    FfmpegServerDemux(UsageEnvironment& env, char const* filename, Boolean reuse_source);
+    virtual ~FFmpegServerDemux();
+    FFmpegServerDemux(UsageEnvironment& env, char const* filename, Boolean reuse_source);
 
 public:
-    FfmpegDemuxedElementaryStream* NewElementaryStream(unsigned client_session_id, u_int8_t stream_id);
+    FFmpegDemuxedElementaryStream* NewElementaryStream(unsigned client_session_id, u_int8_t stream_id);
 
     //
-    //the follow tow functions called in class FfmpegDemux
+    //the follow tow functions called in class FFmpegDemux
     //
-    FfmpegDemuxedElementaryStream* NewAudioStream();
-    FfmpegDemuxedElementaryStream* NewVideoStream();
+    FFmpegDemuxedElementaryStream* NewAudioStream();
+    FFmpegDemuxedElementaryStream* NewVideoStream();
 
     ServerMediaSubsession* NewAudioServerMediaSubsession();
     ServerMediaSubsession* NewVideoServerMediaSubsession();
@@ -49,8 +49,8 @@ private:
     Boolean reuse_source_;
     char const* filename_;
 
-    FfmpegDemux *session0_demux_;
-    FfmpegDemux *last_created_demux_;
+    FFmpegDemux *session0_demux_;
+    FFmpegDemux *last_created_demux_;
     unsigned last_client_session_id_;
 
     int video_stream_id_;

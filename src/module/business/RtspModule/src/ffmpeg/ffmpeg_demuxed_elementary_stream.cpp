@@ -3,42 +3,31 @@
 #include "ffmpeg_demux.h"
 #include "ffmpeg_demuxed_elementary_stream.h"
 
-FfmpegDemuxedElementaryStream *FfmpegDemuxedElementaryStream::CreateNew(
-        UsageEnvironment & env,
-        u_int8_t stream_id,
-        FfmpegDemux& demux, 
-        char const* mine_type,
-        unsigned duration
-        )
+FFmpegDemuxedElementaryStream *FFmpegDemuxedElementaryStream::CreateNew(UsageEnvironment & env,u_int8_t stream_id, FFmpegDemux& demux,char const* mine_type,unsigned duration)
 {
-    return new FfmpegDemuxedElementaryStream(env, stream_id, demux, mine_type, duration);
+    return new FFmpegDemuxedElementaryStream(env, stream_id, demux, mine_type, duration);
 }
 
-FfmpegDemuxedElementaryStream::~FfmpegDemuxedElementaryStream() {
+FFmpegDemuxedElementaryStream::~FFmpegDemuxedElementaryStream()
+{
     ffmpeg_demux_.NoteElementaryStreamDeletion();
 }
-FfmpegDemuxedElementaryStream::FfmpegDemuxedElementaryStream(
-        UsageEnvironment& env,
-        u_int8_t stream_id,
-        FfmpegDemux& demux, 
-        char const* mine_type,
-        unsigned duration):
-    FramedSource(env), ffmpeg_demux_(demux), stream_id_(stream_id), duration_(duration){
 
+FFmpegDemuxedElementaryStream::FFmpegDemuxedElementaryStream(UsageEnvironment& env, u_int8_t stream_id,FFmpegDemux& demux, char const* mine_type, unsigned duration)
+    :FramedSource(env), ffmpeg_demux_(demux), stream_id_(stream_id), duration_(duration)
+{
     mine_type_ = strdup(mine_type);
 
     // Use the current wallclock time as the base 'presentation time':
     gettimeofday(&fPresentationTime, NULL);  
-
 }
 
-void FfmpegDemuxedElementaryStream::doGetNextFrame()
+void FFmpegDemuxedElementaryStream::doGetNextFrame()
 {
-    ffmpeg_demux_.GetNextFrame(stream_id_, fTo, fMaxSize,
-            AfterGettingFrame, this, handleClosure, this);
+    ffmpeg_demux_.GetNextFrame(stream_id_, fTo, fMaxSize, AfterGettingFrame, this, handleClosure, this);
 }
 
-void FfmpegDemuxedElementaryStream::AfterGettingFrame1(unsigned  frame_size,
+void FFmpegDemuxedElementaryStream::AfterGettingFrame1(unsigned  frame_size,
         unsigned  num_truncated_bytes, struct timeval /*presentation_time*/,
         unsigned  /*duration_in_microseconds*/)
 {
@@ -54,29 +43,20 @@ void FfmpegDemuxedElementaryStream::AfterGettingFrame1(unsigned  frame_size,
     FramedSource::afterGetting(this);
 }
 
-
-
-void FfmpegDemuxedElementaryStream::AfterGettingFrame(void *client_data,
-        unsigned  frame_size, unsigned  num_truncated_bytes, struct timeval presentation_time,
-        unsigned  duration_in_microseconds)
+void FFmpegDemuxedElementaryStream::AfterGettingFrame(void *client_data, unsigned  frame_size, unsigned  num_truncated_bytes, struct timeval presentation_time, unsigned  duration_in_microseconds)
 {
-    FfmpegDemuxedElementaryStream* stream
-      = (FfmpegDemuxedElementaryStream*)client_data;
+    FFmpegDemuxedElementaryStream* stream = (FFmpegDemuxedElementaryStream*)client_data;
 
-    stream->AfterGettingFrame1(frame_size, num_truncated_bytes,
-                   presentation_time, duration_in_microseconds);
+    stream->AfterGettingFrame1(frame_size, num_truncated_bytes, presentation_time, duration_in_microseconds);
 }
 
-
-
-void FfmpegDemuxedElementaryStream::doStopGettingFrames()
+void FFmpegDemuxedElementaryStream::doStopGettingFrames()
 {
     //TODO
 }
 
-char const* FfmpegDemuxedElementaryStream::MIMEtype() const
+char const* FFmpegDemuxedElementaryStream::MIMEtype() const
 {
-
     return mine_type_;
 }
 

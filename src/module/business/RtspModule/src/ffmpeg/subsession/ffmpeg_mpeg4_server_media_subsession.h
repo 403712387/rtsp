@@ -1,22 +1,22 @@
 ﻿#ifndef FFMPEG_MPEG4_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_MPEG4_SERVER_MEDIA_SUBSESSION_H_
 
-class FfmpegMPEG4ServerMediaSubsession: public MPEG4VideoFileServerMediaSubsession {
+class FFmpegMPEG4ServerMediaSubsession: public MPEG4VideoFileServerMediaSubsession {
 public:
-    static FfmpegMPEG4ServerMediaSubsession* CreateNew(
-            FfmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source);
+    static FFmpegMPEG4ServerMediaSubsession* CreateNew(
+            FFmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source);
 
 private:
-    virtual ~FfmpegMPEG4ServerMediaSubsession();
-    FfmpegMPEG4ServerMediaSubsession(
-            FfmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source);
+    virtual ~FFmpegMPEG4ServerMediaSubsession();
+    FFmpegMPEG4ServerMediaSubsession(
+            FFmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source);
 
 protected:  //redefined virtual functions
     virtual FramedSource* createNewStreamSource(unsigned clientSessionId,
             unsigned& estBitrate);
 
 private:
-    FfmpegServerDemux& ffmpeg_demux_;
+    FFmpegServerDemux& ffmpeg_demux_;
     u_int8_t stream_id_;
 };
 

@@ -29,12 +29,12 @@ public:
     unsigned data_size_, num_bytes_used_;
 };
 
-////////// FfmpegDemux implementation //////////
+////////// FFmpegDemux implementation //////////
 
-FfmpegDemux *FfmpegDemux::CreateNew(UsageEnvironment & env, char const *filename, Boolean reclaim_last_es_dies)
+FFmpegDemux *FFmpegDemux::CreateNew(UsageEnvironment & env, char const *filename, Boolean reclaim_last_es_dies)
 {
-    FfmpegDemux* demux = new FfmpegDemux(env, filename, reclaim_last_es_dies);
-    if (!demux->InitFfmpeg())
+    FFmpegDemux* demux = new FFmpegDemux(env, filename, reclaim_last_es_dies);
+    if (!demux->InitFFmpeg())
     {
         Medium::close(demux);
         return NULL;
@@ -42,7 +42,7 @@ FfmpegDemux *FfmpegDemux::CreateNew(UsageEnvironment & env, char const *filename
     return demux;
 }
 
-FfmpegDemux::FfmpegDemux(UsageEnvironment & env, char const *filename,Boolean reclaim_last_es_dies)
+FFmpegDemux::FFmpegDemux(UsageEnvironment & env, char const *filename,Boolean reclaim_last_es_dies)
     : Medium(env), num_pending_reads_(0), have_undelivered_data_(False),format_ctx_(NULL)
 {
     filename_ = strdup(filename);
@@ -64,17 +64,17 @@ FfmpegDemux::FfmpegDemux(UsageEnvironment & env, char const *filename,Boolean re
     h264bsfc =  NULL;
 }
 
-FfmpegDemux::~FfmpegDemux()
+FFmpegDemux::~FFmpegDemux()
 {
     delete[] filename_;
-    ReinitFfmpeg();
+    ReinitFFmpeg();
     for (unsigned i = 0; i < 1024; ++i)
     {
         delete output_[i].saved_data_head;
     }
 }
 
-Boolean FfmpegDemux::InitFfmpeg()
+Boolean FFmpegDemux::InitFFmpeg()
 {
     av_register_all();
     if (avformat_open_input(&format_ctx_, filename_, NULL, NULL) != 0)
@@ -89,20 +89,20 @@ Boolean FfmpegDemux::InitFfmpeg()
     return True;
 }
 
-Boolean FfmpegDemux::ReinitFfmpeg()
+Boolean FFmpegDemux::ReinitFFmpeg()
 {
     avformat_close_input(&format_ctx_);
     return True;
 }
 
-FfmpegDemuxedElementaryStream *FfmpegDemux::NewElementaryStream(u_int8_t stream_id, char const* mine_type, unsigned duration)
+FFmpegDemuxedElementaryStream *FFmpegDemux::NewElementaryStream(u_int8_t stream_id, char const* mine_type, unsigned duration)
 {
     ++num_out_es_;
     output_[stream_id].is_potentially_readable = True;
-    return FfmpegDemuxedElementaryStream::CreateNew(envir(), stream_id, *this, mine_type, duration);
+    return FFmpegDemuxedElementaryStream::CreateNew(envir(), stream_id, *this, mine_type, duration);
 }
 
-void FfmpegDemux::GetNextFrame(u_int8_t stream_id, unsigned char* to, unsigned max_size, FramedSource::afterGettingFunc* AfterGettingFunc, void* after_getting_client_data, FramedSource::onCloseFunc* OnCloseFunc, void* on_close_client_data)
+void FFmpegDemux::GetNextFrame(u_int8_t stream_id, unsigned char* to, unsigned max_size, FramedSource::afterGettingFunc* AfterGettingFunc, void* after_getting_client_data, FramedSource::onCloseFunc* OnCloseFunc, void* on_close_client_data)
 {
     // First, check whether we have saved data for this stream id:
     if (UseSavedData(stream_id, to, max_size, AfterGettingFunc, after_getting_client_data))
@@ -119,10 +119,9 @@ void FfmpegDemux::GetNextFrame(u_int8_t stream_id, unsigned char* to, unsigned m
         have_undelivered_data_ = 0;
         ContinueReadProcessing();
     } // otherwise the continued read processing has already been taken care of
-    //TODO:
 }
 
-void FfmpegDemux::StopGettingFrames(u_int8_t stream_id_tag)
+void FFmpegDemux::StopGettingFrames(u_int8_t stream_id_tag)
 {
     struct OutputDescriptor& out = output_[stream_id_tag];
     if (out.is_currently_awaiting_data && num_pending_reads_ > 0)
@@ -133,9 +132,8 @@ void FfmpegDemux::StopGettingFrames(u_int8_t stream_id_tag)
     out.is_currently_active = out.is_currently_awaiting_data = False;
 }
 
-Boolean FfmpegDemux::UseSavedData(u_int8_t stream_id_tag, unsigned char *to,unsigned max_size, FramedSource::afterGettingFunc *AfterGettingFunc, void *after_getting_client_data)
+Boolean FFmpegDemux::UseSavedData(u_int8_t stream_id_tag, unsigned char *to,unsigned max_size, FramedSource::afterGettingFunc *AfterGettingFunc, void *after_getting_client_data)
 {
-
     struct OutputDescriptor& out = output_[stream_id_tag];
     if (out.saved_data_head == NULL)
     {
@@ -187,7 +185,7 @@ Boolean FfmpegDemux::UseSavedData(u_int8_t stream_id_tag, unsigned char *to,unsi
     return True;
 }
 
-void FfmpegDemux::ContinueReadProcessing()
+void FFmpegDemux::ContinueReadProcessing()
 {
     while (num_pending_reads_ > 0)
     {
@@ -212,7 +210,9 @@ void FfmpegDemux::ContinueReadProcessing()
 
                 --num_pending_reads_;
             }
-        } else {
+        }
+        else
+        {
             // We were unable to parse a complete frame from the input, because:
             // - we had to read more data from the source stream, or
             // - we found a frame for a stream that was being read, but whose
@@ -223,7 +223,7 @@ void FfmpegDemux::ContinueReadProcessing()
     }
 }
 
-void FfmpegDemux::RegisterReadInterest(u_int8_t stream_id_tag, unsigned char *to, unsigned max_size, FramedSource::afterGettingFunc *AfterGettingFunc, void *after_getting_client_data, FramedSource::onCloseFunc *OnCloseFunc, void *on_close_client_data)
+void FFmpegDemux::RegisterReadInterest(u_int8_t stream_id_tag, unsigned char *to, unsigned max_size, FramedSource::afterGettingFunc *AfterGettingFunc, void *after_getting_client_data, FramedSource::onCloseFunc *OnCloseFunc, void *on_close_client_data)
 {
     struct OutputDescriptor& out = output_[stream_id_tag];
 
@@ -249,20 +249,20 @@ void FfmpegDemux::RegisterReadInterest(u_int8_t stream_id_tag, unsigned char *to
     ++num_pending_reads_;
 }
 
-void FfmpegDemux::FlushInput()
+void FFmpegDemux::FlushInput()
 {
     //TODO
 }
 
-void FfmpegDemux::ContinueReadProcessing(void *client_data, unsigned char *ptr, unsigned size, struct timeval presentation_time)
+void FFmpegDemux::ContinueReadProcessing(void *client_data, unsigned char *ptr, unsigned size, struct timeval presentation_time)
 {
     //TODO
 }
 
-void FfmpegDemux::HandleClosure(void *client_data)
+void FFmpegDemux::HandleClosure(void *client_data)
 {
     //TODO
-    FfmpegDemux* demux = (FfmpegDemux*) client_data;
+    FFmpegDemux* demux = (FFmpegDemux*) client_data;
 
     demux->num_pending_reads_ = 0;
 
@@ -298,13 +298,13 @@ void FfmpegDemux::HandleClosure(void *client_data)
     }
 }
 
-int FfmpegDemux::CopyData(void* dst, int dst_max_size, const void* src, int src_size)
+int FFmpegDemux::CopyData(void* dst, int dst_max_size, const void* src, int src_size)
 {
     int num_bytes_to_cpy = src_size;
     if (src_size > dst_max_size)
     {
 #if 0
-        envir() << "FfmpegDemux::DataCopy() error: source buffer size ("
+        envir() << "FFmpegDemux::DataCopy() error: source buffer size ("
                 << src_size
                 << ") exceeds max destination buffer size asked for ("
                 << dst_max_size << ")\n";
@@ -315,7 +315,7 @@ int FfmpegDemux::CopyData(void* dst, int dst_max_size, const void* src, int src_
     return num_bytes_to_cpy;
 }
 
-u_int8_t FfmpegDemux::Parse()
+u_int8_t FFmpegDemux::Parse()
 {
     AVPacket packet;
     int acquired_stream_id = -1;
@@ -434,7 +434,7 @@ int static Convert(unsigned char** extradata, int &extra_size) {
 }
 #endif
 
-int FfmpegDemux::ReadOneFrame(AVPacket* packet, boolean &has_extra_data)
+int FFmpegDemux::ReadOneFrame(AVPacket* packet, boolean &has_extra_data)
 {
     int stream_id = -1;
     char const* extension = strrchr(format_ctx_->filename, '.');
@@ -479,7 +479,7 @@ int FfmpegDemux::ReadOneFrame(AVPacket* packet, boolean &has_extra_data)
     return 0;
 }
 
-int FfmpegDemux::SaveData(int stream_id, unsigned char* srcbuf, int size, boolean reuse_buf /* = False*/)
+int FFmpegDemux::SaveData(int stream_id, unsigned char* srcbuf, int size, boolean reuse_buf /* = False*/)
 {
     if (size > 0)
     {
@@ -507,7 +507,7 @@ int FfmpegDemux::SaveData(int stream_id, unsigned char* srcbuf, int size, boolea
     return 0;
 }
 
-void FfmpegDemux::NoteElementaryStreamDeletion()
+void FFmpegDemux::NoteElementaryStreamDeletion()
 {
     if (--num_out_es_ == 0 && reclaim_last_es_dies_)
     {

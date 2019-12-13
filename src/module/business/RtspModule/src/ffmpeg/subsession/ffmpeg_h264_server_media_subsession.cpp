@@ -5,25 +5,25 @@
 #include "ffmpeg_demuxed_elementary_stream.h"
 #include "ffmpeg_h264_server_media_subsession.h"
 
-FfmpegH264ServerMediaSubsession *FfmpegH264ServerMediaSubsession::CreateNew(FfmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source)
+FFmpegH264ServerMediaSubsession *FFmpegH264ServerMediaSubsession::CreateNew(FFmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source)
 {
-    return new FfmpegH264ServerMediaSubsession(demux, stream_id, reuse_source);
+    return new FFmpegH264ServerMediaSubsession(demux, stream_id, reuse_source);
 }
 
 
-FfmpegH264ServerMediaSubsession::~FfmpegH264ServerMediaSubsession()
+FFmpegH264ServerMediaSubsession::~FFmpegH264ServerMediaSubsession()
 {
     // TODO Auto-generated destructor stub
 }
 
-FfmpegH264ServerMediaSubsession::FfmpegH264ServerMediaSubsession(FfmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source):
+FFmpegH264ServerMediaSubsession::FFmpegH264ServerMediaSubsession(FFmpegServerDemux& demux, u_int8_t stream_id, Boolean reuse_source):
     H264VideoFileServerMediaSubsession(demux.envir(), NULL, reuse_source), ffmpeg_demux_(demux),stream_id_(stream_id)
 {
     // TODO Auto-generated constructor stub
 
 }
 
-FramedSource *FfmpegH264ServerMediaSubsession::createNewStreamSource(unsigned  clientSessionId, unsigned& estBitrate)
+FramedSource *FFmpegH264ServerMediaSubsession::createNewStreamSource(unsigned  clientSessionId, unsigned& estBitrate)
 {
     estBitrate = 500;
     FramedSource* es = ffmpeg_demux_.NewElementaryStream(clientSessionId, stream_id_);

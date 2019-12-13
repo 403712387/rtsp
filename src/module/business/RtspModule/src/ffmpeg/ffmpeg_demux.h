@@ -2,23 +2,23 @@
 #define FFMPEG_DEMUX_H_
 
 class SavedData; // forward
-class FfmpegDemuxedElementaryStream;
+class FFmpegDemuxedElementaryStream;
 class AVBitStreamFilterContext;
 struct AVPacket;
 #define boolean Boolean
-class FfmpegDemux: public Medium {
+class FFmpegDemux: public Medium {
 public:
-    static FfmpegDemux* CreateNew(UsageEnvironment& env, char const* filename,
+    static FFmpegDemux* CreateNew(UsageEnvironment& env, char const* filename,
             Boolean reclaim_last_es_dies);
 private:
-    FfmpegDemux(UsageEnvironment& env, char const *filename,
+    FFmpegDemux(UsageEnvironment& env, char const *filename,
             Boolean reclaim_last_es_dies);
-    virtual ~FfmpegDemux();
+    virtual ~FFmpegDemux();
 
 public:
-    Boolean InitFfmpeg();
-    Boolean ReinitFfmpeg();
-    FfmpegDemuxedElementaryStream* NewElementaryStream(u_int8_t streamIdTag,
+    Boolean InitFFmpeg();
+    Boolean ReinitFFmpeg();
+    FFmpegDemuxedElementaryStream* NewElementaryStream(u_int8_t streamIdTag,
             char const* mine_type, unsigned duration);
 
     // similar to FramedSource::getNextFrame(), except that it also
@@ -63,7 +63,7 @@ private:
             boolean reuse_buf = False);
 
 private:
-    friend class FfmpegDemuxedElementaryStream;
+    friend class FFmpegDemuxedElementaryStream;
     void NoteElementaryStreamDeletion();
 private:
     char const *filename_;
