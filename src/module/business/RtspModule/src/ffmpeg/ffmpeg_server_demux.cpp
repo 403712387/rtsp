@@ -104,57 +104,54 @@ ServerMediaSubsession *FfmpegServerDemux::NewVideoServerMediaSubsession() {
     return NewServerMediaSubsession(AVMEDIA_TYPE_VIDEO);
 }
 
-ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession(
-        unsigned int type) {
+ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession( unsigned int type)
+{
     ServerMediaSubsession *sms = NULL;
     int stream_id = -1;
 
     //first time, we should found video and audio stream
-    if (video_stream_id_ == -1) {
-        if (!DetectedStream()) {
+    if (video_stream_id_ == -1)
+    {
+        if (!DetectedStream())
+        {
             return NULL;
         }
     }
 
-    if (type == AVMEDIA_TYPE_VIDEO) {
+    if (type == AVMEDIA_TYPE_VIDEO)
+    {
         stream_id = video_stream_id_;
-    } else {
+    }
+    else
+    {
         stream_id = audio_stream_id_;
     }
 
     //now, create subsessions
-    switch (stream_[stream_id].codec_id) {
+    switch (stream_[stream_id].codec_id)
+    {
     case AV_CODEC_ID_H264:
         stream_[stream_id].mine_type = "video/MPEG";
-        sms = FfmpegH264ServerMediaSubsession::CreateNew(*this, stream_id,
-                False);
+        sms = FfmpegH264ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
-
     case AV_CODEC_ID_MP3:
         stream_[stream_id].mine_type = "audio/MPEG";
         //every mp3 frame contains 1152 samales
-        stream_[stream_id].duration = (1152 * 1000000)
-                / stream_[stream_id].sample_rate;
-        sms
-                = FfmpegMp3ServerMediaSubsession::CreateNew(*this, stream_id,
-                        False);
+        stream_[stream_id].duration = (1152 * 1000000) / stream_[stream_id].sample_rate;
+        sms = FfmpegMp3ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
 
     case AV_CODEC_ID_AAC:
         stream_[stream_id].mine_type = "audio/MPEG";
         //every aac frame contains 1024 sampales
-        stream_[stream_id].duration = (1024 * 1000000)
-                / stream_[stream_id].sample_rate;
+        stream_[stream_id].duration = (1024 * 1000000) / stream_[stream_id].sample_rate;
         sms = FfmpegAACServerMediaSubession::CreateNew(*this, stream_id, False);
         break;
 
     case AV_CODEC_ID_MPEG4:
         stream_[stream_id].mine_type = "video/MPEG";
-        sms = FfmpegMPEG4ServerMediaSubsession::CreateNew(*this, stream_id,
-                False);
+        sms = FfmpegMPEG4ServerMediaSubsession::CreateNew(*this, stream_id, False);
         break;
-        //TODO: create other subsessions
-
     default:
         //can not find required stream
         envir() << "can not find video or audio stream\n";
@@ -162,27 +159,31 @@ ServerMediaSubsession *FfmpegServerDemux::NewServerMediaSubsession(
     return sms;
 }
 
-Boolean FfmpegServerDemux::DetectedStream() {
+Boolean FfmpegServerDemux::DetectedStream()
+{
     struct AVFormatContext *format_ctx = NULL;
 
     av_register_all();
 
     //open file
-    if (avformat_open_input(&format_ctx, filename_, NULL, NULL) != 0) {
+    if (avformat_open_input(&format_ctx, filename_, NULL, NULL) != 0)
+    {
         return False;
     }
 
     //find stream
-    if (avformat_find_stream_info(format_ctx,NULL) < 0) {
+    if (avformat_find_stream_info(format_ctx,NULL) < 0)
+    {
         return False;
     }
 
     AVCodecContext *codec = NULL;
-
     //find first video stream
-    for (unsigned int i = 0; i < format_ctx->nb_streams; ++i) {
+    for (unsigned int i = 0; i < format_ctx->nb_streams; ++i)
+    {
         codec = format_ctx->streams[i]->codec;
-        if (codec->codec_type == AVMEDIA_TYPE_VIDEO) {
+        if (codec->codec_type == AVMEDIA_TYPE_VIDEO)
+        {
             //            video_tag_ = codec->codec_id; // codec->codec_tag;
             video_stream_id_ = i;
 
@@ -204,9 +205,11 @@ Boolean FfmpegServerDemux::DetectedStream() {
     }
 
     //find first audio stream
-    for (unsigned int i = 0; i < format_ctx->nb_streams; ++i) {
+    for (unsigned int i = 0; i < format_ctx->nb_streams; ++i)
+    {
         codec = format_ctx->streams[i]->codec;
-        if (codec->codec_type == AVMEDIA_TYPE_AUDIO) {
+        if (codec->codec_type == AVMEDIA_TYPE_AUDIO)
+        {
             //            audio_tag_ = codec->codec_id; // codec->codec_tag;
             audio_stream_id_ = i;
 
@@ -217,8 +220,7 @@ Boolean FfmpegServerDemux::DetectedStream() {
             stream_[i].extra_data_size = codec->extradata_size;
             stream_[i].extra_data
                     = new unsigned char[stream_[i].extra_data_size + 1];
-            memcpy(stream_[i].extra_data, codec->extradata,
-                    codec->extradata_size);
+            memcpy(stream_[i].extra_data, codec->extradata, codec->extradata_size);
             stream_[i].extra_data[stream_[i].extra_data_size] = 0;
             //duration set later
 
@@ -232,11 +234,13 @@ Boolean FfmpegServerDemux::DetectedStream() {
     return True;
 }
 
-char const* FfmpegServerDemux::MIMEtype(int stream_id) {
+char const* FfmpegServerDemux::MIMEtype(int stream_id)
+{
     return stream_[stream_id].mine_type;
 }
 
-const StreamInfo* FfmpegServerDemux::GetStreamInfo(int stream_id) {
+const StreamInfo* FfmpegServerDemux::GetStreamInfo(int stream_id)
+{
     return &stream_[stream_id];
 }
 
