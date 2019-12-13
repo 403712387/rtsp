@@ -25,7 +25,6 @@ FFmpegDemuxedElementaryStream::FFmpegDemuxedElementaryStream(UsageEnvironment& e
 void FFmpegDemuxedElementaryStream::doGetNextFrame()
 {
     ffmpeg_demux_.GetNextFrame(stream_id_, fTo, fMaxSize, AfterGettingFrame, this, handleClosure, this);
-    handleClosure();
 }
 
 void FFmpegDemuxedElementaryStream::AfterGettingFrame1(unsigned  frame_size,
