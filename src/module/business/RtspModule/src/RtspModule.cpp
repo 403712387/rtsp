@@ -126,12 +126,18 @@ std::shared_ptr<BaseResponse> RtspModule::onProcessStartTaskMessage(std::shared_
         return response;
     }
 
+    // 获取任务
+    std::shared_ptr<RtspTask> task = getTaskByFileName(startTask->getFileName());
+
     // 建立任务
-    std::shared_ptr<RtspTask> task = addTask(startTask->getFileName());
     if (NULL == task.get())
     {
-        response = std::make_shared<StartTaskResponse>("", message, Common::getError("create rtsp stream fail"));
-        return response;
+        task = addTask(startTask->getFileName());
+        if (NULL == task.get())
+        {
+            response = std::make_shared<StartTaskResponse>("", message, Common::getError("create rtsp stream fail"));
+            return response;
+        }
     }
 
     std::string url = task->getStreamName();
@@ -235,6 +241,26 @@ std::shared_ptr<RtspTask> RtspModule::getTask(std::string stream)
     std::shared_ptr<RtspTask> task;
     std::unique_lock<std::mutex> autoLock(mMapTaskMutex);
     return mMapTask.value(stream, task);
+}
+
+// 根据文件名找task
+std::shared_ptr<RtspTask> RtspModule::getTaskByFileName(std::string file)
+{
+    std::shared_ptr<RtspTask> result;
+    std::unique_lock<std::mutex> autoLock(mMapTaskMutex);
+    QMapIterator<std::string, std::shared_ptr<RtspTask>> iter(mMapTask);
+    while(iter.hasNext())
+    {
+        iter.next();
+
+        if (iter.value()->getFileName() == file)
+        {
+            result = iter.value();
+            break;
+        }
+    }
+
+    return result;
 }
 
 // 删除task
