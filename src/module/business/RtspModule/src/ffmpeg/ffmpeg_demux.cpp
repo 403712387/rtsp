@@ -45,7 +45,8 @@ FFmpegDemux::FFmpegDemux(UsageEnvironment & env, char const *filename,Boolean re
     : Medium(env), num_pending_reads_(0), have_undelivered_data_(False),format_ctx_(NULL)
 {
     filename_ = strdup(filename);
-
+    memset(output_, 0, sizeof(output_));
+#if 0
     for (unsigned i = 0; i < 1024; ++i)
     {
         output_[i].saved_data_head = output_[i].saved_data_tail = NULL;
@@ -57,7 +58,7 @@ FFmpegDemux::FFmpegDemux(UsageEnvironment & env, char const *filename,Boolean re
 
         output_[i].data_counts = 0; //this should be delete
     }
-
+#endif
     reclaim_last_es_dies_ = reclaim_last_es_dies;
     num_out_es_ = 0;
     h264bsfc =  NULL;
