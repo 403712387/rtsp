@@ -325,7 +325,7 @@ int FFmpegDemux::Parse()
     {
         Boolean has_extra_data = False;
         int ret = ReadOneFrame(&packet, has_extra_data);
-        if (ret != 0)
+        if (ret == 0)
         {
             stream_id = packet.stream_index;
             OutputDescriptor_t& out = output_[stream_id];
