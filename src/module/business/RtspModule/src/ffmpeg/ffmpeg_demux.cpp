@@ -1,16 +1,15 @@
-#include "BasicUsageEnvironment.hh"
-#include "liveMedia.hh"
-#include "ffmpeg_demuxed_elementary_stream.h"
-#include "ffmpeg_demux.h"
 #include <iostream>
 #include <cstring>
+#include "liveMedia.hh"
+#include "ffmpeg_demux.h"
+#include "BasicUsageEnvironment.hh"
+#include "ffmpeg_demuxed_elementary_stream.h"
 extern "C"
 {
 #include "libavutil/avutil.h"
 #include "libavformat/avformat.h"
 #include "libavcodec/avcodec.h"
 }
-
 
 class SavedData {
 public:
@@ -241,8 +240,7 @@ void FFmpegDemux::RegisterReadInterest(u_int8_t stream_id_tag, unsigned char *to
     // Make sure this stream is not already being read:
     if (out.is_currently_awaiting_data)
     {
-        envir()
-                << "MPEG1or2Demux::registerReadInterest(): attempt to read stream id "
+        envir() << "MPEG1or2Demux::registerReadInterest(): attempt to read stream id "
                 << stream_id_tag << " more than once!\n";
         envir().internalError();
     }
@@ -315,10 +313,8 @@ int FFmpegDemux::CopyData(void* dst, int dst_max_size, const void* src, int src_
     if (src_size > dst_max_size)
     {
 #if 0
-        envir() << "FFmpegDemux::DataCopy() error: source buffer size ("
-                << src_size
-                << ") exceeds max destination buffer size asked for ("
-                << dst_max_size << ")\n";
+        envir() << "FFmpegDemux::DataCopy() error: source buffer size (" << src_size
+                << ") exceeds max destination buffer size asked for (" << dst_max_size << ")\n";
 #endif
         num_bytes_to_cpy = dst_max_size;
     }
@@ -404,8 +400,11 @@ u_int8_t FFmpegDemux::Parse()
         }
 
         av_free_packet(&packet);
-
+#if 0
     } while (acquired_stream_id == -1);
+#else
+    } while(false);
+#endif
 
     return acquired_stream_id;
 }
