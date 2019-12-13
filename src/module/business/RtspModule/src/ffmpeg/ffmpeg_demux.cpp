@@ -221,6 +221,8 @@ void FFmpegDemux::ContinueReadProcessing()
             struct OutputDescriptor& newOut = output_[acquiredStreamIdTag];
             if (NULL != newOut.OnCloseFunc)
             {
+                newOut.saved_data_total_size = 0;
+                newOut.is_currently_active = newOut.is_currently_awaiting_data = newOut.is_potentially_readable = false;
                 newOut.OnCloseFunc(newOut.on_close_client_data);
             }
             break;
