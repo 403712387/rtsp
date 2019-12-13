@@ -46,19 +46,6 @@ FFmpegDemux::FFmpegDemux(UsageEnvironment & env, char const *filename,Boolean re
 {
     filename_ = strdup(filename);
     memset(output_, 0, sizeof(output_));
-#if 0
-    for (unsigned i = 0; i < 1024; ++i)
-    {
-        output_[i].saved_data_head = output_[i].saved_data_tail = NULL;
-        output_[i].is_potentially_readable = False;
-        output_[i].is_currently_active = False;
-        output_[i].is_currently_awaiting_data = False;
-        output_[i].presentation_time.tv_sec = 0;
-        output_[i].presentation_time.tv_usec = 0;
-
-        output_[i].data_counts = 0; //this should be delete
-    }
-#endif
     reclaim_last_es_dies_ = reclaim_last_es_dies;
     num_out_es_ = 0;
     h264bsfc =  NULL;
@@ -405,7 +392,7 @@ int FFmpegDemux::Parse()
         }
 
         av_free_packet(&packet);
-#if 0
+#if 1
     } while (acquired_stream_id == -1);
 #else
     } while(false);
