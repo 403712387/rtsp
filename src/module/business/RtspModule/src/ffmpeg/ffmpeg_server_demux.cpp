@@ -174,8 +174,12 @@ Boolean FFmpegServerDemux::DetectedStream()
 
     av_register_all();
 
+    // 设置超时时间(单位是微秒)
+    AVDictionary *option = NULL;
+    av_dict_set(&option, "stimeout", "5000000", 0);
+
     //open file
-    if (avformat_open_input(&format_ctx, filename_, NULL, NULL) != 0)
+    if (avformat_open_input(&format_ctx, filename_, NULL, &option) != 0)
     {
         return False;
     }

@@ -77,7 +77,11 @@ FFmpegDemux::~FFmpegDemux()
 Boolean FFmpegDemux::InitFFmpeg()
 {
     av_register_all();
-    if (avformat_open_input(&format_ctx_, filename_, NULL, NULL) != 0)
+
+    // 设置超时时间(单位是微秒)
+    AVDictionary *option = NULL;
+    av_dict_set(&option, "stimeout", "5000000", 0);
+    if (avformat_open_input(&format_ctx_, filename_, NULL, &option) != 0)
     {
         return False;
     }
