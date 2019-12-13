@@ -221,13 +221,17 @@ void FFmpegDemux::ContinueReadProcessing()
             // - we found a frame for a stream that was being read, but whose
             //   reader is not ready to get the frame right now, or
             // - the source stream has ended.
-            struct OutputDescriptor& newOut = output_[acquiredStreamIdTag];
-            if (NULL != newOut.OnCloseFunc)
+            for (int i = 0; i < 1024; ++i)
             {
-                newOut.saved_data_total_size = 0;
-                newOut.is_currently_active = newOut.is_currently_awaiting_data = newOut.is_potentially_readable = false;
-                newOut.OnCloseFunc(newOut.on_close_client_data);
+                struct OutputDescriptor& newOut = output_[i];
+                if (NULL != newOut.OnCloseFunc)
+                {
+                    newOut.saved_data_total_size = 0;
+                    newOut.is_currently_active = newOut.is_currently_awaiting_data = newOut.is_potentially_readable = false;
+                    (*newOut.OnCloseFunc)(newOut.on_close_client_data);
+                }
             }
+
             break;
         }
     }
