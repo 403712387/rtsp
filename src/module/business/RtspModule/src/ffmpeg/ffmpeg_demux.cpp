@@ -322,7 +322,7 @@ int FFmpegDemux::CopyData(void* dst, int dst_max_size, const void* src, int src_
     return num_bytes_to_cpy;
 }
 
-u_int8_t FFmpegDemux::Parse()
+int FFmpegDemux::Parse()
 {
     AVPacket packet;
     int acquired_stream_id = -1;

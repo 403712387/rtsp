@@ -53,7 +53,7 @@ private:
             unsigned size, struct timeval presentation_time);
     void ContinueReadProcessing();
 
-    u_int8_t Parse();
+    int Parse();
 
     int ReadOneFrame(AVPacket* packet, Boolean &has_extra_data);
 
