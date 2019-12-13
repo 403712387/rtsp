@@ -217,7 +217,7 @@ def processFilePromission(path):
             continue
 
         #对于sh结束的文件，修改权限
-        if fileName.endswith(".sh"):
+        if fileName.endswith(".sh") or fileName.endswith("ffmpeg") or fileName.endswith("ffprobe"):
             os.chmod(fileName, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
 
 #拷贝文件或者目录
