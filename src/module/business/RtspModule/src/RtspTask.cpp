@@ -39,6 +39,8 @@ bool RtspTask::stopTask()
         return true;
     }
     mMediaSession->deleteAllSubsessions();
+    mRtspServer->deleteServerMediaSession(mMediaSession);
+    mMediaSession = NULL;
     return true;
 }
 
@@ -203,15 +205,25 @@ ServerMediaSession* RtspTask::createSession()
       sms->addSubsession(smss);
     }
   }
-  else if (strcmp(extension, ".avi") == 0 || strcmp(extension, ".mp4") == 0)
+  else
   {
+      // 其他方式都打不开的话，用ffmpeg打开
       OutPacketBuffer::maxSize = 800000;
       NEW_SMS("ffmpeg");
       FFmpegServerDemux* demux = FFmpegServerDemux::CreateNew(*mEnvironment, mFileName.c_str(), reuseSource);
       if (NULL != demux)
       {
-          //sms->addSubsession(demux->NewAudioServerMediaSubsession());
-          sms->addSubsession(demux->NewVideoServerMediaSubsession());
+          ServerMediaSubsession *subSession = demux->NewVideoServerMediaSubsession();
+          if (NULL != subSession)
+          {
+             sms->addSubsession(subSession);
+          }
+          else
+          {
+              LOG_E(mClassName, "create subsession fial, file:" << mFileName)
+              mRtspServer->deleteServerMediaSession(sms);
+              sms = NULL;
+          }
       }
   }
 
