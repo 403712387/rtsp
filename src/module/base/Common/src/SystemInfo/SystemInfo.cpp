@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include "SystemInfo.h"
 #include "PlatformInfo.h"
 #include "CPUStatistic.h"

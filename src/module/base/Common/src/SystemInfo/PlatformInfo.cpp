@@ -1,4 +1,4 @@
-#include "PlatformInfo.h"
+﻿#include "PlatformInfo.h"
 Json::Value PlatformInfo::toJson()
 {
     Json::Value result;

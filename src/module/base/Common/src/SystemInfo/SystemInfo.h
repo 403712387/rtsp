@@ -1,4 +1,4 @@
-#ifndef SYSTEM_INFO_H
+﻿#ifndef SYSTEM_INFO_H
 #define SYSTEM_INFO_H
 #include <memory>
 #include <vector>

@@ -1,4 +1,4 @@
-#include <sstream>
+﻿#include <sstream>
 #include <algorithm>
 #include "Log.h"
 #include "BaseWaitMessage.h"

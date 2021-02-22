@@ -1,4 +1,4 @@
-#ifndef STOP_TASK_MESSAGE_H
+﻿#ifndef STOP_TASK_MESSAGE_H
 #define STOP_TASK_MESSAGE_H
 #include "BaseMessage.h"
 

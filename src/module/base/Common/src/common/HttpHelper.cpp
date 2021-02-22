@@ -1,4 +1,4 @@
-#include "Log.h"
+﻿#include "Log.h"
 #include "HttpHelper.h"
 #include "curl/curl.h"
 

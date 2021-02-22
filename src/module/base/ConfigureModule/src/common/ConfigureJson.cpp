@@ -1,4 +1,4 @@
-#include <QtCore/QFile>
+﻿#include <QtCore/QFile>
 #include <QtCore/QString>
 #include <sstream>
 #include "ConfigureInfo.h"

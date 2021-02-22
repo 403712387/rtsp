@@ -1,4 +1,4 @@
-#ifndef PANDA_MESSAGE_H
+﻿#ifndef PANDA_MESSAGE_H
 #define PANDA_MESSAGE_H
 #include <string>
 #include <memory>

@@ -1,4 +1,4 @@
-#ifndef SPEED_STATISTIC_LIST_H
+﻿#ifndef SPEED_STATISTIC_LIST_H
 #define SPEED_STATISTIC_LIST_H
 #include <vector>
 #include <mutex>

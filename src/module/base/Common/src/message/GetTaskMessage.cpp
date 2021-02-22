@@ -1,4 +1,4 @@
-#include <sstream>
+﻿#include <sstream>
 #include "GetTaskMessage.h"
 
 GetTaskMessage::GetTaskMessage(MessageTransType transType, PriorityType priority, MessageDistriubite distribute)

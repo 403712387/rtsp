@@ -1,4 +1,4 @@
-#ifndef FFMPEGDEMUX_H_
+﻿#ifndef FFMPEGDEMUX_H_
 #define FFMPEGDEMUX_H_
 #define MAX_STREAM_NUM 5
 

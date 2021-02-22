@@ -1,4 +1,4 @@
-#ifndef FFMPEGDEMUXEDELEMENTARYSTREAM_H_
+﻿#ifndef FFMPEGDEMUXEDELEMENTARYSTREAM_H_
 #define FFMPEGDEMUXEDELEMENTARYSTREAM_H_
 class FFmpegDemux;
 class FFmpegDemuxedElementaryStream: public FramedSource {

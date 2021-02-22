@@ -1,5 +1,4 @@
-QT       += core
-QT       -= gui
+QT       -= core gui
 CONFIG += c++11 plugin
 TARGET = HttpModule
 TEMPLATE = lib
@@ -10,6 +9,7 @@ MOC_DIR = ../../../output/HttpModule
 INCLUDEPATH += ../Common/src \
             ../../../../thirdparty/include \
             ../../../../thirdparty/include/Qt \
+            ../../../../thirdparty/include/Qt/QtCore \
             ../Common/src/message \
             ../Common/src/info \
             ../Common/src/common \
@@ -34,9 +34,10 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
 }
 
 HEADERS += \
-    src/*.h \
-    src/helper/*.h
+    src/HttpModule.h \
+    src/helper/JsonHelper.h
 
 SOURCES += \
-    src/*.cpp \
-    src/helper/*.cpp
+    src/HttpModule.cpp \
+    src/helper/JsonHelper.cpp
+

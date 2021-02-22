@@ -1,4 +1,4 @@
-#ifndef DISK_STATISTIC_H
+﻿#ifndef DISK_STATISTIC_H
 #define DISK_STATISTIC_H
 #include "Base.h"
 #include "jsoncpp/json.h"

@@ -1,4 +1,4 @@
-#include <sstream>
+﻿#include <sstream>
 #include "Error.h"
 
 Error::Error(std::string reason, long long code)

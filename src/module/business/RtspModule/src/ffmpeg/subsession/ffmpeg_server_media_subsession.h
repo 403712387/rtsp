@@ -1,4 +1,4 @@
-#ifndef FFMPEG_SERVER_MEDIA_SUBSESSION_H_
+﻿#ifndef FFMPEG_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_SERVER_MEDIA_SUBSESSION_H_
 
 #include "ffmpeg_h264_server_media_subsession.h"

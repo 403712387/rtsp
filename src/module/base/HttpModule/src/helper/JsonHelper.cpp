@@ -1,4 +1,4 @@
-#include <malloc.h>
+﻿#include <malloc.h>
 #include <QtCore/QDateTime>
 #include "Log.h"
 #include "JsonHelper.h"

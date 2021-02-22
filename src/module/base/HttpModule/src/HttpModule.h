@@ -1,4 +1,4 @@
-#ifndef HTTP_MODULE_H
+﻿#ifndef HTTP_MODULE_H
 #define HTTP_MODULE_H
 #include <string>
 #include <memory>

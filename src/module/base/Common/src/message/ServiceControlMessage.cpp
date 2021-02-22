@@ -1,4 +1,4 @@
-#include <sstream>
+﻿#include <sstream>
 #include "ServiceControlMessage.h"
 
 ServiceControlMessage::ServiceControlMessage(ServiceOperateType controlType, MessageTransType transType,

@@ -1,4 +1,4 @@
-#ifndef COMMON_COMMON_H
+﻿#ifndef COMMON_COMMON_H
 #define COMMON_COMMON_H
 #include <vector>
 #include <string>

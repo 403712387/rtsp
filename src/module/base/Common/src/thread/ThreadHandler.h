@@ -1,4 +1,4 @@
-#ifndef THREAD_HANDLER_H
+﻿#ifndef THREAD_HANDLER_H
 #define THREAD_HANDLER_H
 #include <memory>
 #include "Base.h"

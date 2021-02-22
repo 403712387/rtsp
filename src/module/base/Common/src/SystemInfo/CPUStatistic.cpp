@@ -1,4 +1,4 @@
-#include "CPUStatistic.h"
+﻿#include "CPUStatistic.h"
 
 Json::Value CPUStatistic::toJson()
 {

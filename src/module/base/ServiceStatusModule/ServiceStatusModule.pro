@@ -1,5 +1,4 @@
-QT       += core
-QT       -= gui
+QT       -= core gui
 CONFIG += c++11 plugin
 TARGET = ServiceStatusModule
 TEMPLATE = lib
@@ -12,6 +11,7 @@ INCLUDEPATH += ../Common/src \
             ./src/common \
             ../../../../thirdparty/include \
             ../../../../thirdparty/include/Qt \
+            ../../../../thirdparty/include/Qt/QtCore \
             ../Common/src/message \
             ../CoreModule/src
 win32 {
@@ -30,7 +30,8 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule \
 }
 
 HEADERS += \
-    src/*.h
+    src/ServiceStatusModule.h
 
 SOURCES += \
-    src/*.cpp
+    src/ServiceStatusModule.cpp
+

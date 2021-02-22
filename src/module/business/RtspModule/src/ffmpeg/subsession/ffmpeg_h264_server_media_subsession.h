@@ -1,4 +1,4 @@
-#ifndef FFMPEG_H264_SERVER_MEDIA_SUBSESSION_H_
+﻿#ifndef FFMPEG_H264_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_H264_SERVER_MEDIA_SUBSESSION_H_
 
 //though inherit from H264VideoFileServerMediaSubsession, we don't use the function

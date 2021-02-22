@@ -1,4 +1,4 @@
-#ifndef FFMPEG_DEMUX_H_
+﻿#ifndef FFMPEG_DEMUX_H_
 #define FFMPEG_DEMUX_H_
 
 class SavedData; // forward

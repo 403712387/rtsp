@@ -1,5 +1,4 @@
-QT       += core
-QT       -= gui
+QT       -= core gui
 CONFIG += c++11 plugin
 TARGET = ConfigureModule
 TEMPLATE = lib
@@ -13,6 +12,7 @@ INCLUDEPATH += ../Common/src \
             ../../protocol/log/src \
             ../../../../thirdparty/include \
             ../../../../thirdparty/include/Qt \
+            ../../../../thirdparty/include/Qt/QtCore \
             ../Common/src/message \
             ../CoreModule/src
 win32 {
@@ -29,9 +29,10 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule \
 }
 
 HEADERS += \
-    src/*.h \
-    src/common/*.h
+    src/ConfigureModule.h \
+    src/common/ConfigureJson.h
 
 SOURCES += \
-    src/*.cpp \
-    src/common/*.cpp
+    src/ConfigureModule.cpp \
+    src/common/ConfigureJson.cpp
+

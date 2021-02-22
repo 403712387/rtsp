@@ -1,4 +1,4 @@
-#include "PriorityQueue.h"
+﻿#include "PriorityQueue.h"
 /*
 // 队列是否为空
 template <typename T> bool PriorityQueue<T>::empty()

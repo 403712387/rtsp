@@ -1,4 +1,4 @@
-#ifndef GET_SERVICE_STATUS_MESSAGE_H
+﻿#ifndef GET_SERVICE_STATUS_MESSAGE_H
 #define GET_SERVICE_STATUS_MESSAGE_H
 #include "BaseMessage.h"
 

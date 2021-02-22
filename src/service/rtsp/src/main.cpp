@@ -1,4 +1,4 @@
-#include <QtCore/QtGlobal>
+﻿#include <QtCore/QtGlobal>
 #include <QtCore/QCoreApplication>
 #include "Common.h"
 #include "RtspModule.h"

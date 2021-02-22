@@ -1,4 +1,4 @@
-#ifndef FFMPEG_MEDIA_H_
+﻿#ifndef FFMPEG_MEDIA_H_
 #define FFMPEG_MEDIA_H_
 
 #include "ffmpeg_demuxed_elementary_stream.h"

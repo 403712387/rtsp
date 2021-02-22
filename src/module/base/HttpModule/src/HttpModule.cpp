@@ -1,4 +1,4 @@
-#include <QtCore/QFileInfo>
+﻿#include <QtCore/QFileInfo>
 #include <QtCore/QString>
 #include <QtCore/QByteArray>
 #include <sstream>

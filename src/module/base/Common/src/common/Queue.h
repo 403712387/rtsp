@@ -1,4 +1,4 @@
-#ifndef QUEUE_H
+﻿#ifndef QUEUE_H
 #define QUEUE_H
 #include <list>
 #include <memory>

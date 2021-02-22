@@ -1,4 +1,4 @@
-#ifndef START_TASK_MESSAGE_H
+﻿#ifndef START_TASK_MESSAGE_H
 #define START_TASK_MESSAGE_H
 #include "BaseMessage.h"
 

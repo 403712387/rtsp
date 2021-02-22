@@ -1,4 +1,4 @@
-#ifndef BASE_H
+﻿#ifndef BASE_H
 #define BASE_H
 
 #ifdef WIN32

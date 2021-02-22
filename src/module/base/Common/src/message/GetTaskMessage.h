@@ -1,4 +1,4 @@
-#ifndef GET_TASK_MESSAGE_H
+﻿#ifndef GET_TASK_MESSAGE_H
 #define GET_TASK_MESSAGE_H
 #include "BaseMessage.h"
 #include "jsoncpp/json.h"

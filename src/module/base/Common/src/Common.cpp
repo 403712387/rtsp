@@ -1,4 +1,4 @@
-#include <QtCore/QDir>
+﻿#include <QtCore/QDir>
 #include <vector>
 #include <atomic>
 #include <QtCore/QDateTime>

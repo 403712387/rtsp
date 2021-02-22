@@ -1,5 +1,4 @@
-QT       += core
-QT       -= gui
+QT       -= core gui
 CONFIG += c++11 plugin
 TARGET = RtspModule
 TEMPLATE = lib
@@ -11,6 +10,7 @@ DEFINES += __STDC_CONSTANT_MACROS
 INCLUDEPATH += ../../base/Common/src \
             ../../../../thirdparty/include \
             ../../../../thirdparty/include/Qt \
+            ../../../../thirdparty/include/Qt/QtCore \
             ../../../../thirdparty/include/ffmpeg \
             ../../../../thirdparty/include/live555/BasicUsageEnvironment/include \
             ../../../../thirdparty/include/live555/liveMedia/include \
@@ -42,13 +42,30 @@ LIBS += -L../../../bin/rtsp/lib/module -lCommon -lCoreModule -lCommon \
 }
 
 HEADERS += \
-    src/*.h \
-    src/common/*.h \
-    src/ffmpeg/*.h \
-    src/ffmpeg/subsession/*.h
+    src/RtspModule.h \
+    src/RtspTask.h \
+    src/common/RtspCommon.h \
+    src/ffmpeg/ffmpeg_demux.h \
+    src/ffmpeg/ffmpeg_demuxed_elementary_stream.h \
+    src/ffmpeg/ffmpeg_media.h \
+    src/ffmpeg/ffmpeg_server_demux.h \
+    src/ffmpeg/subsession/ffmpeg_aac_server_media_subsession.h \
+    src/ffmpeg/subsession/ffmpeg_h264_server_media_subsession.h \
+    src/ffmpeg/subsession/ffmpeg_h265_server_media_subsession.h \
+    src/ffmpeg/subsession/ffmpeg_mp3_server_media_subsession.h \
+    src/ffmpeg/subsession/ffmpeg_mpeg4_server_media_subsession.h \
+    src/ffmpeg/subsession/ffmpeg_server_media_subsession.h
 
 SOURCES += \
-    src/*.cpp \
-    src/common/*.cpp \
-    src/ffmpeg/*.cpp \
-    src/ffmpeg/subsession/*.cpp
+    src/RtspModule.cpp \
+    src/RtspTask.cpp \
+    src/common/RtspCommon.cpp \
+    src/ffmpeg/ffmpeg_demux.cpp \
+    src/ffmpeg/ffmpeg_demuxed_elementary_stream.cpp \
+    src/ffmpeg/ffmpeg_server_demux.cpp \
+    src/ffmpeg/subsession/ffmpeg_aac_server_media_subsession.cpp \
+    src/ffmpeg/subsession/ffmpeg_h264_server_media_subsession.cpp \
+    src/ffmpeg/subsession/ffmpeg_h265_server_media_subsession.cpp \
+    src/ffmpeg/subsession/ffmpeg_mp3_server_media_subsession.cpp \
+    src/ffmpeg/subsession/ffmpeg_mpeg4_server_media_subsession.cpp
+

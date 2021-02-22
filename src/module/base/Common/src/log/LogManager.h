@@ -1,4 +1,4 @@
-#ifndef LOG_MANAGER_H
+﻿#ifndef LOG_MANAGER_H
 #define LOG_MANAGER_H
 #include <atomic>
 #include <vector>

@@ -1,4 +1,4 @@
-#ifndef MEMORY_STATISTIC_H
+﻿#ifndef MEMORY_STATISTIC_H
 #define MEMORY_STATISTIC_H
 #include "Base.h"
 #include "jsoncpp/json.h"

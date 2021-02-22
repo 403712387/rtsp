@@ -1,4 +1,4 @@
-#include "Common.h"
+﻿#include "Common.h"
 #include "ThreadHandler.h"
 
 ThreadHandler::ThreadHandler(std::string threadName)

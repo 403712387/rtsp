@@ -1,4 +1,4 @@
-#ifndef RTSP_TASK_H
+﻿#ifndef RTSP_TASK_H
 #define RTSP_TASK_H
 #include <string>
 #include <QDateTime>

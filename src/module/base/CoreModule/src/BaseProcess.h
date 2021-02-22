@@ -1,4 +1,4 @@
-#ifndef BASE_PROCESS_H
+﻿#ifndef BASE_PROCESS_H
 #define BASE_PROCESS_H
 #include <string>
 #include <memory>

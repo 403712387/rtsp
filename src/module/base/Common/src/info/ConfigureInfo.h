@@ -1,4 +1,4 @@
-#ifndef CONFIGURE_INFO_H
+﻿#ifndef CONFIGURE_INFO_H
 #define CONFIGURE_INFO_H
 #include <QtCore/QMap>
 #include <mutex>

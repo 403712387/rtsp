@@ -1,4 +1,4 @@
-#ifndef RTSP_MODULE_H
+﻿#ifndef RTSP_MODULE_H
 #define RTSP_MODULE_H
 #include <QMap>
 #include <thread>

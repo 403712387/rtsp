@@ -1,4 +1,4 @@
-#ifndef FFMPEG_MP3_SERVER_MEDIA_SUBSESSION_H_
+﻿#ifndef FFMPEG_MP3_SERVER_MEDIA_SUBSESSION_H_
 #define FFMPEG_MP3_SERVER_MEDIA_SUBSESSION_H_
 
 class FFmpegMp3ServerMediaSubsession: public MP3AudioFileServerMediaSubsession{

@@ -1,4 +1,4 @@
-// Version information for the "liveMedia" library
+﻿// Version information for the "liveMedia" library
 // Copyright (c) 1996-2019 Live Networks, Inc.  All rights reserved.
 
 #ifndef _LIVEMEDIA_VERSION_HH

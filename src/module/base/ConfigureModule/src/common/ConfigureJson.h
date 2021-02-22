@@ -1,4 +1,4 @@
-#ifndef CONFIGURE_JSON_H
+﻿#ifndef CONFIGURE_JSON_H
 #define CONFIGURE_JSON_H
 #include <string>
 #include <memory>

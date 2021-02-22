@@ -1,4 +1,4 @@
-#ifndef ERROR_H
+﻿#ifndef ERROR_H
 #define ERROR_H
 #include <string>
 #include "Base.h"

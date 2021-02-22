@@ -1,4 +1,4 @@
-#ifndef CPU_STATSTIC_H
+﻿#ifndef CPU_STATSTIC_H
 #define CPU_STATSTIC_H
 #include "Base.h"
 #include "jsoncpp/json.h"

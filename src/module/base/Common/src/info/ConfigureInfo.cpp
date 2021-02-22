@@ -1,4 +1,4 @@
-#include <sstream>
+﻿#include <sstream>
 #include "ConfigureInfo.h"
 
 // 日志级别

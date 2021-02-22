@@ -1,4 +1,4 @@
-#ifndef JSON_HELPER_H
+﻿#ifndef JSON_HELPER_H
 #define JSON_HELPER_H
 #include <map>
 #include <vector>

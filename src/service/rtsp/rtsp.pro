@@ -1,5 +1,4 @@
-QT       += core
-QT       -= gui
+QT       -= core gui
 CONFIG += c++11 console
 TARGET = rtsp
 TEMPLATE = app
@@ -19,7 +18,9 @@ INCLUDEPATH += \
             ../../module/base/ServiceStatusModule/src \
             ../../module/base/ConfigureModule/src \
             ../../module/business/RtspModule/src \
-            ../../../thirdparty/include
+            ../../../thirdparty/include \
+            ../../../thirdparty/include/Qt \
+            ../../../thirdparty/include/Qt/QtCore
 
 win32 {
 LIBS += -L../../bin/rtsp/lib/module -lCommon -lCoreModule -lHttpModule -lServiceStatusModule -lConfigureModule -lRtspModule \
@@ -41,4 +42,4 @@ LIBS += -L../../bin/rtsp/lib/module -lCommon -lCoreModule -lHttpModule -lService
 }
 
 SOURCES += \
-    src/*.cpp
+    src/main.cpp

@@ -1,4 +1,4 @@
-#ifndef HTTP_HELPER_H
+﻿#ifndef HTTP_HELPER_H
 #define HTTP_HELPER_H
 #include <string>
 #include <mutex>

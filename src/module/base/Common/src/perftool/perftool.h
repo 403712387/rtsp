@@ -1,4 +1,4 @@
-#ifndef PERF_TOOL_H
+﻿#ifndef PERF_TOOL_H
 #define PERF_TOOL_H
 #include <string>
 #include "Base.h"

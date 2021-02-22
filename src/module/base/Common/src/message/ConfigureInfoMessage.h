@@ -1,4 +1,4 @@
-#ifndef CONFIGURE_INFO_MESSAGE_H
+﻿#ifndef CONFIGURE_INFO_MESSAGE_H
 #define CONFIGURE_INFO_MESSAGE_H
 #include "BaseMessage.h"
 

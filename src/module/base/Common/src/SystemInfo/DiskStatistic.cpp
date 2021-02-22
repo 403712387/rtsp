@@ -1,4 +1,4 @@
-#include "DiskStatistic.h"
+﻿#include "DiskStatistic.h"
 Json::Value DiskStatistic::toJson()
 {
     Json::Value result;

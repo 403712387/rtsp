@@ -1,4 +1,4 @@
-#include <QtCore/QtGlobal>
+﻿#include <QtCore/QtGlobal>
 #include <QtCore/QFileInfo>
 #include <QtCore/QByteArray>
 #include "Log.h"

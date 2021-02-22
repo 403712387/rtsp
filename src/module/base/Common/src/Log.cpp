@@ -1,4 +1,4 @@
-#include  "Log.h"
+﻿#include  "Log.h"
 #include "log/LogManager.h"
 
 // 设置日志的配置文件，如果不设置，则使用默认配置

@@ -1,4 +1,4 @@
-#ifndef PROCESS_STATSTIC_H
+﻿#ifndef PROCESS_STATSTIC_H
 #define PROCESS_STATSTIC_H
 #include "Base.h"
 #include "jsoncpp/json.h"

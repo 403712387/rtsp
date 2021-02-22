@@ -1,4 +1,4 @@
-#ifndef SERVICE_STATUS_INFO_H
+﻿#ifndef SERVICE_STATUS_INFO_H
 #define SERVICE_STATUS_INFO_H
 #include <QtCore/QMap>
 #include <mutex>

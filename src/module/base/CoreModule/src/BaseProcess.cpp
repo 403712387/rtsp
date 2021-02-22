@@ -1,4 +1,4 @@
-#include "Log.h"
+﻿#include "Log.h"
 #include "Common.h"
 #include "BaseProcess.h"
 #include "MessageRoute.h"

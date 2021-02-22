@@ -1,4 +1,4 @@
-// Version information for the "groupsock" library
+﻿// Version information for the "groupsock" library
 // Copyright (c) 1996-2019 Live Networks, Inc.  All rights reserved.
 
 #ifndef _GROUPSOCK_VERSION_HH

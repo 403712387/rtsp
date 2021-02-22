@@ -1,4 +1,4 @@
-#ifndef SERVICE_CONTROL_MESSAGE_H
+﻿#ifndef SERVICE_CONTROL_MESSAGE_H
 #define SERVICE_CONTROL_MESSAGE_H
 #include "Common.h"
 #include "BaseMessage.h"

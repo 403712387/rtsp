@@ -1,4 +1,4 @@
-#ifndef BASE_WAIT_MESSAGE_H
+﻿#ifndef BASE_WAIT_MESSAGE_H
 #define BASE_WAIT_MESSAGE_H
 #include <mutex>
 #include <condition_variable>

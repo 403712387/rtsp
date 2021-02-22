@@ -1,4 +1,4 @@
-#include <sstream>
+﻿#include <sstream>
 #include <thread>
 #include "BaseMessage.h"
 #include "SpeedStatisticList.h"
